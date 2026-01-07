@@ -1,0 +1,68 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --pup-maroon: #800000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--pup-maroon);
+}
+
+.page {
+    display: none;
+    height: 100vh;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+
+.active {
+    display: flex;
+}
+
+#landing-page {
+    background-color: var(--pup-maroon);
+    color: white;
+    text-align: center;
+    max-width: 1040px;
+    margin: 0 auto;
+}
+
+#landing-page .logo-circle {
+    background-color: white;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px auto;
+}
+
+.btn-pill {
+    font-weight: 600;
+    padding: 14px 0;
+    width: 280px;
+    border-radius: 9999px;
+    cursor: pointer;
+    margin: 0 auto;
+    transition: opacity 0.2s;
+}
+
+#landing-page .btn-solid {
+    background-color: white;
+    color: var(--pup-maroon);
+    border: 2px solid white;
+}
+
+#landing-page .btn-outline {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}

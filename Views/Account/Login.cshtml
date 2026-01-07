@@ -1,0 +1,51 @@
+﻿<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="~/css/login-register-form.css" asp-append-version="true" />
+</head>
+<div id="login-page" class="page form-page">
+    <div class="top-strip"></div>
+    <div class="content-wrapper">
+        <div class="form-card">
+            <div class="back-btn" onclick="showPage('landing-page')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </div>
+            <h2 class="form-title">Login</h2>
+            <div class="role-tabs">
+                <div class="role-tab active">Customer</div>
+                <div class="role-tab">Admin</div>
+                <div class="role-tab">Vendor</div>
+            </div>
+
+            <form asp-controller="Account" asp-action="Login" method="post">
+                @* Email input *@
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input  type="email" 
+                            class="form-input" 
+                            required 
+                            placeholder="Enter your email"
+                            name="username" @* .NET automatically routes this to the parameter *@
+                    >
+                </div>
+            
+                @* Password input *@
+                <div class="form-group mb-6">
+                    <label>Password</label>
+                    <input  type="password" 
+                        class="form-input" 
+                        required 
+                        placeholder="Enter your password"
+                        name="password" @* .NET automatically routes this to the parameter *@
+                    >
+                </div>
+
+                <button type="submit" class="btn-maroon">Login</button>
+            </form>
+
+            <p class="text-center mt-6 text-sm text-gray-600">Don't have an account? <span class="text-[#800000] font-bold cursor-pointer" onclick="showPage('register-page')">Register</span></p>
+        </div>
+    </div>
+</div>
