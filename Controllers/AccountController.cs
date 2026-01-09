@@ -3,12 +3,16 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PUP_Online_Lagoon_System.Models;
+
 //  Accesses all account models
 using PUP_Online_Lagoon_System.Models.Account;
 // Access to Data to Object (DTO's)
 using PUP_Online_Lagoon_System.Models.DTO;
 //  Accesses all services
 using PUP_Online_Lagoon_System.Service;
+using System;
 using System.Diagnostics;
 //  For cookies
 using System.Security.Claims;
@@ -22,10 +26,13 @@ namespace PUP_Online_Lagoon_System.Controllers
         //  Handles methods for login and registration
         private readonly IAuthUser _authService;
 
-        public AccountController(ILogger<AccountController> logger, IAuthUser authService)
+        private readonly ApplicationDbContext _dbContext;
+
+        public AccountController(ILogger<AccountController> logger, IAuthUser authService, ApplicationDbContext dbContext)
         {
             _logger = logger;
             _authService = authService;
+            _dbContext = dbContext;
         }
 
         [Authorize]
@@ -51,12 +58,28 @@ namespace PUP_Online_Lagoon_System.Controllers
             //  If statement both sets user as the return of the function and checks if it's null
             if (_authService.ValidateUser(username, password) is User user)
             {
+                string roleId = user.Role.ToLower() switch
+                {
+                    "admin" => user.User_ID,
+
+                    // Use FirstOrDefault to search by a specific property like User_ID
+                    "vendor" => _dbContext.Vendors
+                                    .FirstOrDefault(v => v.User_ID == user.User_ID)?.Vendor_ID,
+
+                    "customer" => _dbContext.Customers
+                                    .FirstOrDefault(c => c.User_ID == user.User_ID)?.Customer_ID,
+
+                    _ => user.User_ID
+                };
+
+
                 //  Add more claims when needed
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.Email),
                     new Claim("UserId", user.User_ID),
-                    new Claim("Role", user.Role.ToLower())
+                    new Claim("Role", user.Role.ToLower()),
+                    new Claim("RoleId", roleId)
                 };
 
                 //  Contains the list of claims made declared (name: "email" & UserID: "user_ID")

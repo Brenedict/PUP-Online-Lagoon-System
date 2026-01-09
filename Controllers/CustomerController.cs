@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using PUP_Online_Lagoon_System.Models.Account;
 // Access to Data to Object (DTO's)
 using PUP_Online_Lagoon_System.Models.DTO;
+using PUP_Online_Lagoon_System.Models.Stall;
+
 //  Accesses all services
 using PUP_Online_Lagoon_System.Service;
 using System.Diagnostics;
@@ -15,14 +17,17 @@ using System.Security.Claims;
 
 namespace PUP_Online_Lagoon_System.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class CustomerController : Controller
     {
         private readonly ILogger<AccountController> _logger;
 
-        public CustomerController(ILogger<AccountController> logger)
+        private readonly CustomerService _service;
+
+        public CustomerController(ILogger<AccountController> logger, CustomerService service)
         {
             _logger = logger;
+            _service = service;
         }
 
         [HttpGet]
@@ -61,16 +66,19 @@ namespace PUP_Online_Lagoon_System.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult StallMenu()
+        [HttpPost]
+        public IActionResult StallMenu(string stallId)
         {
-            return View();
+            var customerStallCheckoutDTO = _service.getCustomerStallCheckoutDTO(stallId);
+            return View(customerStallCheckoutDTO);
         }
 
         [HttpGet]
         public IActionResult Stalls()
         {
-            return View();
+            var openedStalls = _service.GetOpenFoodStalls();
+            return View(openedStalls);
         }
+
     }
 }

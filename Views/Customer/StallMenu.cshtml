@@ -1,4 +1,5 @@
-﻿
+﻿@model PUP_Online_Lagoon_System.Models.DTO.CustomerStallCheckoutDTO;
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,7 @@
             <a href="stalls.html" class="back-button">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="header-title">Ate Maria's Carinderia</h1>
+            <h1 class="header-title">@Model.stallDetails.StallName</h1>
         </div>
 
         <a href="cart.html" class="btn-my-cart">
@@ -27,12 +28,49 @@
             <i class="fas fa-bowl-food"></i>
         </div>
         <div>
-            <h2 class="stall-name-large">Ate Maria's Carinderia</h2>
-            <p class="stall-prep-time">Prep time: 10-15 mins</p>
+            <h2 class="stall-name-large">@Model.stallDetails.StallName</h2>
+            <p class="stall-prep-time">Prep time: @Model.stallDetails.PrepTime mins</p>
         </div>
     </div>
 
     <div class="menu-container">
+        @foreach(var foodItem in Model.foodItems)
+        {
+            @if(foodItem.Availability != false) {
+                <div class="menu-card">
+                    <div class="food-img-box"></div>
+                    <div class="food-details">
+                        <h3 class="food-title">@foodItem.FoodName</h3>
+                        <p class="food-desc">@foodItem.FoodDescription</p>
+                        <p class="food-price">₱@foodItem.Price</p>
+
+                        <div class="card-actions">
+                            <div class="counter-box">
+                                <button class="btn-minus">−</button>
+                                <span class="count-num">1</span>
+                                <button class="btn-plus">+</button>
+                            </div>
+                            <button class="btn-add-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="menu-card">
+                    <div class="food-img-box"></div>
+                    <div class="food-details">
+                        <h3 class="food-title">@foodItem.FoodName</h3>
+                        <p class="food-desc">@foodItem.FoodDescription</p>
+                        <p class="food-price">₱@foodItem.Price</p>
+                        <span class="badge-unavailable">Unavailable</span>
+                    </div>
+                </div>
+            }
+        }
+        
+
+        @* 
 
         <div class="menu-card">
             <div class="food-img-box"></div>
@@ -58,16 +96,6 @@
                 <h3 class="food-title">Chicken Adobo with Rice</h3>
                 <p class="food-desc">Description</p>
                 <p class="food-price">₱55.00</p>
-                <span class="badge-unavailable">Unavailable</span>
-            </div>
-        </div>
-
-        <div class="menu-card">
-            <div class="food-img-box"></div>
-            <div class="food-details">
-                <h3 class="food-title">Chicken Adobo with Rice</h3>
-                <p class="food-desc">Description</p>
-                <p class="food-price">₱55.00</p>
 
                 <div class="card-actions">
                     <div class="counter-box">
@@ -78,25 +106,7 @@
                     <button class="btn-add-cart">Add to Cart</button>
                 </div>
             </div>
-        </div>
-
-        <div class="menu-card">
-            <div class="food-img-box"></div>
-            <div class="food-details">
-                <h3 class="food-title">Chicken Adobo with Rice</h3>
-                <p class="food-desc">Description</p>
-                <p class="food-price">₱55.00</p>
-
-                <div class="card-actions">
-                    <div class="counter-box">
-                        <button class="btn-minus">−</button>
-                        <span class="count-num">1</span>
-                        <button class="btn-plus">+</button>
-                    </div>
-                    <button class="btn-add-cart">Add to Cart</button>
-                </div>
-            </div>
-        </div>
+        </div> *@
 
     </div>
 

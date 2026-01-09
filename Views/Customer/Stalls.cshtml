@@ -1,4 +1,4 @@
-﻿
+﻿@model List<PUP_Online_Lagoon_System.Models.Stall.FoodStall>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,49 +28,39 @@
     <div class="main-content">
         <p class="result-count">5 stalls available</p>
 
-        <a href="stall-menu.html" style="text-decoration: none; color: inherit; display: block;">
-            <div class="stall-card">
-                <div class="stall-img-box">
-                    <i class="fas fa-bowl-food" style="color: #6b7280; font-size: 20px;"></i>
-                </div>
-                <div class="stall-info">
-                    <h3 class="stall-name">Ate Maria's Carinderia</h3>
-                    <span class="status-badge status-open">Open</span>
-                    <span class="time-text"><i class="far fa-clock"></i> 10-15 mins</span>
-                </div>
-                <div class="arrow-icon">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-            </div>
-        </a>
+        @foreach(var stall in Model)
+        {
+            <form asp-controller="Customer" asp-action="StallMenu" method="post">
+                <input type="hidden" name="stallId" value="@stall.Stall_ID" />
+                <button type="submit" style="all: unset; display: block; width: 100%; text-align: left; cursor: pointer;">
+                    <div class="stall-card">
+                        <div class="stall-img-box">
+                            <i class="fas fa-rice-bowl" style="color: #6b7280; font-size: 20px;"></i>
+                        </div>
+                        <div class="stall-info">
+                            <h3 class="stall-name">@stall.StallName</h3>
 
-        <div class="stall-card">
-            <div class="stall-img-box">
-                <i class="fas fa-drumstick-bite" style="color: #6b7280; font-size: 20px;"></i>
-            </div>
-            <div class="stall-info">
-                <h3 class="stall-name">Manong's Chicken BBQ</h3>
-                <span class="status-badge status-open">Open</span>
-                <span class="time-text"><i class="far fa-clock"></i> 15-20 mins</span>
-            </div>
-            <div class="arrow-icon">
-                <i class="fas fa-arrow-right"></i>
-            </div>
-        </div>
+                            @if(stall.Status == true)
+                            {
+                                <span class="status-badge status-open">Open</span>
+                            } 
+                            else
+                            {
+                                <span class="status-badge status-closed">Closed</span>
+                            }
 
-        <div class="stall-card">
-            <div class="stall-img-box">
-                <i class="fas fa-utensils" style="color: #6b7280; font-size: 20px;"></i>
-            </div>
-            <div class="stall-info">
-                <h3 class="stall-name">Kuya's Pancit House</h3>
-                <span class="status-badge status-open">Open</span>
-                <span class="time-text"><i class="far fa-clock"></i> 10-12 mins</span>
-            </div>
-            <div class="arrow-icon">
-                <i class="fas fa-arrow-right"></i>
-            </div>
-        </div>
+                            <span class="time-text"><i class="far fa-clock"></i>@stall.PrepTime</span>
+                        </div>
+                        <div class="arrow-icon">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </button>
+            </form>
+        }
+        
+
+        @* 
 
         <div class="stall-card">
             <div class="stall-img-box">
@@ -81,21 +71,9 @@
                 <span class="status-badge status-closed">Closed</span>
                 <span class="time-text"><i class="far fa-clock"></i> 12-15 mins</span>
             </div>
-        </div>
+        </div> *@
 
-        <div class="stall-card">
-            <div class="stall-img-box">
-                <i class="fas fa-bread-slice" style="color: #6b7280; font-size: 20px;"></i>
-            </div>
-            <div class="stall-info">
-                <h3 class="stall-name">Sari-Sari Snacks</h3>
-                <span class="status-badge status-open">Open</span>
-                <span class="time-text"><i class="far fa-clock"></i> 5-8 mins</span>
-            </div>
-            <div class="arrow-icon">
-                <i class="fas fa-arrow-right"></i>
-            </div>
-        </div>
+        
 
     </div>
 

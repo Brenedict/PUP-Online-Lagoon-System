@@ -1,4 +1,5 @@
-﻿
+﻿@model PUP_Online_Lagoon_System.Models.DTO.VendorMenuDTO;
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,7 @@
     <link rel="stylesheet" href="~/css/vendor/vendor-menu.css" asp-append-version="true">
 </head>
 <body>
-
+    
     <header class="menu-header">
         <div class="header-left">
             <a href="vendor-dashboard.html" class="back-button">
@@ -18,122 +19,58 @@
             </a>
             <h1 class="header-title">Manage Menu</h1>
         </div>
-        <button class="btn-add-item">
-            <i class="fas fa-plus"></i>
-        </button>
+        <form asp-controller="Vendor" asp-action="NewFoodItem" method="post">
+            <button type="submit" class="btn-add-item">
+                <i class="fas fa-plus"></i>
+            </button>
+        </form>
     </header>
 
     <div class="sub-header">
         <span class="sub-label">Managing menu for</span>
-        <h2 class="store-name">Ate Maria's Carinderia</h2>
+        <h2 class="store-name">@Model.stallDetails.StallName</h2>
     </div>
 
     <div class="menu-list">
-
-        <div class="menu-item-card">
-            <div class="item-top">
-                <div>
-                    <h3 class="item-name">Chicken Adobo with Rice</h3>
-                    <p class="item-price">₱55.00</p>
+        @foreach(var foodItem in Model.foodItems)
+        {
+            <div class="menu-item-card">
+                <div class="item-top">
+                    <div>
+                        <h3 class="item-name">@foodItem.FoodName</h3>
+                        <p class="item-description">@foodItem.FoodDescription</p>
+                        <p class="item-price">₱@foodItem.Price</p>
+                    </div>
+                    <div class="action-icons">
+                        <button type="button"
+                                onclick="openEditModal('@foodItem.Food_ID')"
+                                class="btn-icon text-blue-500">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon text-red-500"><i class="fas fa-trash"></i></button>
+                    </div>
                 </div>
-                <div class="action-icons">
-                    <a href="#edit-modal" class="btn-icon text-blue-500"><i class="fas fa-edit"></i></a>
-                    <button class="btn-icon text-red-500"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
 
-            <div class="item-status">
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider round"></span>
-                </label>
-                <span class="status-text text-green">Available</span>
+                <form asp-controller="QuickVendor" asp-action="ToggleFoodItemAvailability" method="post">
+                    <input type="hidden" name="foodId" value="@foodItem.Food_ID" />
+
+                    <div class="item-status">
+                        <label class="switch">
+                            <input type="checkbox" @(foodItem.Availability ? "checked" : "") onchange="this.form.submit()">
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="status-text text-green">@(foodItem.Availability ? "Available" : "Unavailable")</span>
+                    </div>
+                </form>
             </div>
+        }
+    </div>
+
+    <div id="modal-container"
+         style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999; justify-content:center; align-items:center;">
+
+        <div id="modal-content" class="bg-white p-6 rounded-lg w-full max-w-md shadow-2xl">
         </div>
-
-        <div class="menu-item-card">
-            <div class="item-top">
-                <div>
-                    <h3 class="item-name">Pork Sinigang</h3>
-                    <p class="item-price">₱60.00</p>
-                </div>
-                <div class="action-icons">
-                    <a href="#edit-modal" class="btn-icon text-blue-500"><i class="fas fa-edit"></i></a>
-                    <button class="btn-icon text-red-500"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-
-            <div class="item-status">
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider round"></span>
-                </label>
-                <span class="status-text text-green">Available</span>
-            </div>
-        </div>
-
-        <div class="menu-item-card">
-            <div class="item-top">
-                <div>
-                    <h3 class="item-name">Fried Chicken with Rice</h3>
-                    <p class="item-price">₱50.00</p>
-                </div>
-                <div class="action-icons">
-                    <a href="#edit-modal" class="btn-icon text-blue-500"><i class="fas fa-edit"></i></a>
-                    <button class="btn-icon text-red-500"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-
-            <div class="item-status">
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider round"></span>
-                </label>
-                <span class="status-text text-green">Available</span>
-            </div>
-        </div>
-
-        <div class="menu-item-card">
-            <div class="item-top">
-                <div>
-                    <h3 class="item-name">Lumpia Shanghai (5 pcs)</h3>
-                    <p class="item-price">₱30.00</p>
-                </div>
-                <div class="action-icons">
-                    <a href="#edit-modal" class="btn-icon text-blue-500"><i class="fas fa-edit"></i></a>
-                    <button class="btn-icon text-red-500"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-
-            <div class="item-status">
-                <label class="switch">
-                    <input type="checkbox"> <span class="slider round"></span>
-                </label>
-                <span class="status-text text-gray">Unavailable</span>
-            </div>
-        </div>
-
-        <div class="menu-item-card">
-            <div class="item-top">
-                <div>
-                    <h3 class="item-name">Halo-Halo</h3>
-                    <p class="item-price">₱40.00</p>
-                </div>
-                <div class="action-icons">
-                    <a href="#edit-modal" class="btn-icon text-blue-500"><i class="fas fa-edit"></i></a>
-                    <button class="btn-icon text-red-500"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-
-            <div class="item-status">
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider round"></span>
-                </label>
-                <span class="status-text text-green">Available</span>
-            </div>
-        </div>
-
     </div>
 
     <nav class="bottom-nav">
@@ -157,36 +94,22 @@
             <span>Profile</span>
         </a>
     </nav>
-
-    <div id="edit-modal" class="modal-overlay">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3 class="modal-title">Edit Item</h3>
-                <a href="#" class="close-x"><i class="fas fa-times"></i></a>
-            </div>
-
-            <div class="modal-body">
-                <div class="input-group">
-                    <label>Food Name</label>
-                    <input type="text" value="Chicken Adobo with Rice" class="modal-input">
-                </div>
-
-                <div class="input-group">
-                    <label>Description</label>
-                    <input type="text" value="Masarap" class="modal-input">
-                </div>
-
-                <div class="input-group">
-                    <label>Price (₱)</label>
-                    <input type="number" value="55" class="modal-input">
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <a href="#" class="btn-modal-cancel">Cancel</a>
-                <button class="btn-modal-update">Update</button>
-            </div>
-        </div>
-    </div>
-
 </body>
+<script>
+        function openEditModal(id) {
+        const container = document.getElementById('modal-container');
+        const content = document.getElementById('modal-content');
+
+        fetch('/Vendor/GetEditModal?id=' + id)
+            .then(response => response.text())
+            .then(html => {
+                content.innerHTML = html;
+                container.style.display = 'flex'; // This "pops" the modal
+            })
+            .catch(err => console.error("Error loading modal:", err));
+    }
+
+    function closeModal() {
+        document.getElementById('modal-container').style.display = 'none';
+    }
+</script>

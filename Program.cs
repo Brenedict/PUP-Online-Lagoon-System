@@ -11,6 +11,11 @@ builder.Services.AddControllersWithViews();
 //  Project Services
 builder.Services.AddScoped<IAuthUser, AuthService>();
 builder.Services.AddScoped<IGenerateCustomId, AuthService>();
+builder.Services.AddScoped<CustomerService>();
+builder.Services.AddScoped<VendorService>();
+
+//  Cookie claims access
+builder.Services.AddHttpContextAccessor();
 
 //  Project Database Connection
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
