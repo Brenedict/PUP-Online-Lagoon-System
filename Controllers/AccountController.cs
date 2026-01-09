@@ -99,7 +99,7 @@ namespace PUP_Online_Lagoon_System.Controllers
         public IActionResult Register(CustomerRegisterDTO userInfo)
         {
             Console.WriteLine(userInfo.ToString());
-            _authService.RegisterUser(userInfo);
+            _authService.RegisterCustomer(userInfo);
             return RedirectToAction("LandingPage"); // Redirect to actual role home page
         }
 

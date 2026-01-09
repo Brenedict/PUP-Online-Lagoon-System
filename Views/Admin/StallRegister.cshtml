@@ -1,0 +1,89 @@
+﻿@model PUP_Online_Lagoon_System.Models.DTO.StallRegisterDTO;
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - PUP Lagoon Food Ordering</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
+</head>
+<body>
+
+    <header class="top-header">
+        <a href="AdminManageStalls" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="header-title">Create New Stall</h1>
+    </header>
+
+    <div class="main-content">
+
+        <div class="info-box">
+            These credentials are already predefined. Please provide these to the respective Stall and remind them to change their credentials.
+        </div>
+            @* Hidden forms to properly route and transfer the dto *@
+            <form asp-controller="Admin" asp-action="StallRegister" method="post">
+
+                <input type="hidden" asp-for="Stall_ID" />
+                <input type="hidden" asp-for="StallName" />
+                <input type="hidden" asp-for="StallDescription" />
+                <input type="hidden" asp-for="PrepTime" />
+                <input type="hidden" asp-for="Status" />
+
+                <input type="hidden" asp-for="Vendor_ID" />
+                <input type="hidden" asp-for="FirstName" />
+                <input type="hidden" asp-for="LastName" />
+                <input type="hidden" asp-for="ContactNum" />
+
+                <input type="hidden" asp-for="User_ID" />
+                <input type="hidden" asp-for="Email" />
+                <input type="hidden" asp-for="Password" />
+                <input type="hidden" asp-for="Role" />
+
+            
+                <div class="form-group">
+
+                    <div>
+                        <label class="input-label">Stall Name</label>
+                        <input  style="opacity: 0.5;"
+                                type="text" 
+                                disabled
+                                class="custom-input"
+                                value="@Model.StallName"
+                        >
+                    </div>
+
+                    <div>
+                        <label class="input-label">Email</label>
+                        <input  style="opacity: 0.5;"
+                                type="text" 
+                                disabled 
+                                class="custom-input"
+                                value="@Model.Email"
+                        >
+                    </div>
+                    <div>
+                        <label class="input-label">Password</label>
+                        <input style="opacity: 0.5;"
+                               type="text"
+                               disabled
+                               class="custom-input"
+                               value="@Model.Password">
+                    </div>
+
+                    <div class="alert alert-danger" role="alert">
+                        You are about to create an account for <strong>"@Model.StallName"</strong>
+                    </div>
+
+                    <button type="submit" class="btn-register" style="display: block; text-align: center; text-decoration: none;">
+                        Create
+                    </button>
+               
+                </div>
+            </form>
+    </div>
+
+</body>

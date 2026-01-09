@@ -16,14 +16,17 @@ using System.Security.Claims;
 
 namespace PUP_Online_Lagoon_System.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AdminController : Controller
     {
         private readonly ILogger<AccountController> _logger;
 
-        public AdminController(ILogger<AccountController> logger)
+        private readonly IAuthUser _authService;
+
+        public AdminController(ILogger<AccountController> logger, IAuthUser authService )
         {
             _logger = logger;
+            _authService = authService;
         }
 
         [HttpGet]
@@ -50,6 +53,18 @@ namespace PUP_Online_Lagoon_System.Controllers
             return View();
         }
 
-        
+        [HttpGet]
+        public IActionResult StallRegister()
+        {
+            _authService.GenerateDefaultStall(out StallRegisterDTO dto);
+            return View(dto);
+        }
+
+        [HttpPost]
+        public IActionResult StallRegister(StallRegisterDTO dto)
+        {
+            _authService.RegisterStall(dto);
+            return RedirectToAction("AdminManageStalls");
+        }
     }
 }

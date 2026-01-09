@@ -3,9 +3,9 @@ using PUP_Online_Lagoon_System.Models.Stall;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PUP_Online_Lagoon_System.Models.Order
+namespace PUP_Online_Lagoon_System.Models.Orders
 {
-    public class Order
+    public class ItemOrder
     {
         [Key]
         public string Order_ID { get; set; }
@@ -19,6 +19,8 @@ namespace PUP_Online_Lagoon_System.Models.Order
         [Required]
         public string OrderStatus { get; set; }
 
+        [Required]
+        public string EstPickupTime { get; set; }
 
         //  Foreign Keys
         public string Customer_ID { get; set; }
