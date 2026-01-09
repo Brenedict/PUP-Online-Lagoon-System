@@ -1,0 +1,150 @@
+﻿
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History - Vendor</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/vendor/vendor-order-history.css" asp-append-version="true">
+</head>
+<body>
+
+    <header class="history-header">
+        <div class="header-left">
+            <a href="vendor-dashboard.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 class="header-title">Order History</h1>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <p class="history-label">Past Orders (4)</p>
+
+        <div class="history-card">
+            <div class="card-top">
+                <div>
+                    <h3 class="customer-name">Ana Reyes</h3>
+                    <p class="order-id">Order #ORD123450</p>
+                </div>
+                <span class="badge badge-completed">Completed</span>
+            </div>
+
+            <div class="card-meta">
+                <div class="time"><i class="far fa-clock"></i> 10:00 AM</div>
+                <div class="total-price">₱120.00</div>
+            </div>
+
+            <div class="items-section">
+                <p class="items-label">Items:</p>
+                <div class="item-row">
+                    <span>1x Pork Sinigang</span>
+                    <span>₱60.00</span>
+                </div>
+                <div class="item-row">
+                    <span>2x Lumpia Shanghai (5 pcs)</span>
+                    <span>₱60.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="history-card">
+            <div class="card-top">
+                <div>
+                    <h3 class="customer-name">Carlos Lopez</h3>
+                    <p class="order-id">Order #ORD123451</p>
+                </div>
+                <span class="badge badge-completed">Completed</span>
+            </div>
+
+            <div class="card-meta">
+                <div class="time"><i class="far fa-clock"></i> 10:30 AM</div>
+                <div class="total-price">₱110.00</div>
+            </div>
+
+            <div class="items-section">
+                <p class="items-label">Items:</p>
+                <div class="item-row">
+                    <span>2x Chicken Adobo with Rice</span>
+                    <span>₱110.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="history-card">
+            <div class="card-top">
+                <div>
+                    <h3 class="customer-name">Rosa Fernandez</h3>
+                    <p class="order-id">Order #ORD123452</p>
+                </div>
+                <span class="badge badge-cancelled">Cancelled</span>
+            </div>
+
+            <div class="card-meta">
+                <div class="time"><i class="far fa-clock"></i> 9:45 AM</div>
+                <div class="total-price">₱90.00</div>
+            </div>
+
+            <div class="items-section">
+                <p class="items-label">Items:</p>
+                <div class="item-row">
+                    <span>1x Fried Chicken with Rice</span>
+                    <span>₱50.00</span>
+                </div>
+                <div class="item-row">
+                    <span>1x Halo-Halo</span>
+                    <span>₱40.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="history-card">
+            <div class="card-top">
+                <div>
+                    <h3 class="customer-name">David Cruz</h3>
+                    <p class="order-id">Order #ORD123453</p>
+                </div>
+                <span class="badge badge-completed">Completed</span>
+            </div>
+
+            <div class="card-meta">
+                <div class="time"><i class="far fa-clock"></i> 11:15 AM</div>
+                <div class="total-price">₱135.00</div>
+            </div>
+
+            <div class="items-section">
+                <p class="items-label">Items:</p>
+                <div class="item-row">
+                    <span>3x Pancit Canton</span>
+                    <span>₱135.00</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="VendorDashboard" class="nav-item">
+            <i class="fas fa-store"></i>
+            <span>Home</span>
+        </a>
+
+        <a href="VendorOrderHistory" class="nav-item  active">
+            <i class="fas fa-receipt"></i>
+            <span>Orders</span>
+        </a>
+
+        <a href="VendorMenu" class="nav-item">
+            <i class="fas fa-bars"></i>
+            <span>Menu</span>
+        </a>
+
+        <a href="VendorProfile" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+</body>

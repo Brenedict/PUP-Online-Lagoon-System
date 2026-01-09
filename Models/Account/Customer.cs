@@ -17,6 +17,8 @@ namespace PUP_Online_Lagoon_System.Models.Account
         [Required]
         public string ContactNum { get; set; }
 
+        //  Foreign Keys
+
         public string User_ID { get; set; }
 
         [ForeignKey("User_ID")]

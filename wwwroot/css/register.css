@@ -1,0 +1,146 @@
+﻿:root {
+    --primary-red: #800000; /* Deep Maroon */
+    --bg-gray: #f9fafb; /* Very light gray background */
+    --text-dark: #333333;
+    --border-gray: #e5e7eb;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-gray);
+    min-height: 100vh; /* changed from height to min-height to allow scrolling */
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- HEADER (Red Bar) --- */
+.top-header {
+    background-color: var(--primary-red);
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky; /* Keeps header at top if scrolling */
+    top: 0;
+    z-index: 10;
+}
+
+.back-button {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.header-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+/* --- MAIN CONTENT --- */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-y: auto; /* Allows form to scroll on small screens */
+}
+
+/* --- BLUE INFO BOX --- */
+.info-box {
+    background-color: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1e40af;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+}
+
+    .info-box::before {
+        content: '\f05a'; /* FontAwesome Info Icon */
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        margin-right: 12px;
+        font-size: 16px;
+    }
+
+/* --- FORM INPUTS --- */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Slightly tighter gap than login to fit more fields */
+}
+
+.input-label {
+    display: block;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* The Red Star for Required Fields */
+.required {
+    color: #dc2626; /* Bright Red */
+    margin-left: 2px;
+}
+
+.custom-input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 6px;
+    border: 1px solid var(--border-gray);
+    font-size: 15px;
+    box-sizing: border-box;
+    outline: none;
+    background-color: white;
+}
+
+    .custom-input:focus {
+        border-color: var(--primary-red);
+    }
+
+/* --- REGISTER BUTTON --- */
+.btn-register {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    background-color: var(--primary-red);
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+    .btn-register:hover {
+        opacity: 0.9;
+    }
+
+/* --- FOOTER LINKS --- */
+.footer-links {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+}
+
+.login-link {
+    color: var(--primary-red);
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 4px;
+}

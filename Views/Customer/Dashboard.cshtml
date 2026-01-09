@@ -1,0 +1,69 @@
+﻿
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PUP Lagoon Food Ordering</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/customer/dashboard.css" asp-append-version="true">
+</head>
+<body>
+
+    <header class="dashboard-header">
+        <div class="user-info">
+            <span class="welcome-text">Welcome back,</span>
+            <h1 class="user-name">Juan Dela Cruz</h1>
+            <p class="user-id">2021-00000-MN-0</p>
+        </div>
+        </div>
+        <div class="profile-icon">
+            <i class="fas fa-user"></i>
+        </div>
+    </header>
+
+    <div class="stats-container">
+        <div class="stat-item">
+            <span class="stat-number">0</span>
+            <span class="stat-label">Active Orders</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number">0</span>
+            <span class="stat-label">Total Orders Today</span>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h2 class="section-title">Active Orders</h2>
+
+        <div class="empty-state-card">
+            <i class="fas fa-shopping-bag empty-icon"></i>
+            <p class="empty-text">No active orders</p>
+            <a href="stalls.html" class="btn-browse" style="text-decoration:none; display:inline-block;">
+                Browse Food Stalls
+            </a>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="Dashboard" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="Stalls" class="nav-item">
+            <i class="fas fa-store"></i>
+            <span>Stalls</span>
+        </a>
+        <a href="OrderHistory" class="nav-item">
+            <i class="fas fa-receipt"></i>
+            <span>Orders</span>
+        </a>
+        <a href="Profile" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+</body>

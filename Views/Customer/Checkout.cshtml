@@ -1,0 +1,74 @@
+﻿<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/customer/checkout.css" asp-append-version="true">
+</head>
+<body>
+
+    <header class="checkout-header">
+        <a href="cart.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="header-title">Checkout</h1>
+    </header>
+
+    <div class="main-content">
+
+        <h2 class="section-label">Order Summary</h2>
+        <div class="summary-card">
+            <div class="summary-item">
+                <span class="item-name">1x Chicken Adobo with Rice</span>
+                <span class="item-price">₱55.00</span>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span>₱55.00</span>
+            </div>
+            <div class="summary-row">
+                <span>Service Fee</span>
+                <span>₱5.00</span>
+            </div>
+            <div class="summary-row total-row">
+                <span>Total</span>
+                <span class="total-price">₱60.00</span>
+            </div>
+        </div>
+
+        <h2 class="section-label"><i class="far fa-clock"></i> Estimated Pickup Time</h2>
+        <div class="pickup-card">
+            <div class="pickup-time">6:02 PM</div>
+            <div class="pickup-subtext">Approximately 30 minutes from now</div>
+        </div>
+
+        <h2 class="section-label"><i class="far fa-credit-card"></i> Payment Method</h2>
+
+        <div class="payment-option selected">
+            <div class="radio-circle selected-radio">
+                <div class="inner-circle"></div>
+            </div>
+            <i class="fas fa-money-bill-wave payment-icon"></i>
+            <span class="payment-text">Cash on Pickup</span>
+        </div>
+
+        <div class="payment-option">
+            <div class="radio-circle"></div>
+            <i class="far fa-credit-card payment-icon"></i>
+            <span class="payment-text">Online Payment</span>
+        </div>
+
+    </div>
+
+    <div class="bottom-bar">
+        <a href="order-success.html" class="btn-confirm" style="text-decoration: none; display: block; text-align: center;">
+            Confirm Order - ₱60.00
+        </a>
+    </div>
+
+</body>
+</html>

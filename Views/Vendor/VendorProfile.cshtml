@@ -1,0 +1,140 @@
+﻿
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Profile - PUP Lagoon</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/vendor/vendor-profile.css" asp-append-version="true">
+</head>
+<body>
+
+    <header class="profile-header">
+        <div class="header-top">
+            <a href="vendor-dashboard.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 class="header-title">Vendor Settings</h1>
+        </div>
+
+        <div class="profile-summary">
+            <div class="avatar-circle">
+                <i class="fas fa-store"></i>
+            </div>
+            <div class="user-text">
+                <h2 class="user-name">Maria Cruz</h2>
+                <p class="user-role">Vendor Account</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+
+        <h3 class="section-label">Personal Information</h3>
+        <div class="form-card">
+            <div class="input-group">
+                <label>First Name</label>
+                <input type="text" value="Maria" class="input-field">
+            </div>
+            <div class="input-group">
+                <label>Last Name</label>
+                <input type="text" value="Cruz" class="input-field">
+            </div>
+            <div class="input-group">
+                <label>Contact Number</label>
+                <input type="text" placeholder="0912 345 6789" class="input-field">
+            </div>
+            <div class="input-group">
+                <label>Email (Fixed by Admin)</label>
+                <div class="readonly-field">
+                    <i class="far fa-envelope"></i>
+                    <span>vendor1@lagoon.com</span>
+                </div>
+            </div>
+
+            <button class="btn-save">Save Profile</button>
+        </div>
+
+        <h3 class="section-label">Stall Settings</h3>
+        <div class="form-card">
+            <div class="input-group">
+                <label>Stall Name</label>
+                <input type="text" value="Ate Maria's Carinderia" class="input-field">
+            </div>
+            <div class="input-group">
+                <label>Stall Description</label>
+                <textarea placeholder="Describe your food stall..." class="input-field textarea-field"></textarea>
+            </div>
+
+            <div class="input-group">
+                <label>Stall Status</label>
+                <div class="status-toggle-row">
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                    <div class="status-labels">
+                        <span class="status-main text-green">Open</span>
+                        <span class="status-sub">Accepting orders</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-save">Save Stall Settings</button>
+        </div>
+
+        <h3 class="section-label">Change Password</h3>
+        <div class="form-card">
+            <label class="sub-label">Current Password</label>
+            <input type="password" placeholder="Enter current password" class="input-field mb-4">
+
+            <label class="sub-label">New Password</label>
+            <input type="password" placeholder="At least 6 characters" class="input-field mb-4">
+
+            <label class="sub-label">Confirm New Password</label>
+            <input type="password" placeholder="Re-enter new password" class="input-field mb-4">
+
+            <button class="btn-save">
+                <i class="fas fa-lock"></i> Update Password
+            </button>
+        </div>
+
+        <h3 class="section-label">Performance</h3>
+        <div class="info-card center-text">
+            <h2 class="big-number">127</h2>
+            <p class="number-label">Total Orders</p>
+        </div>
+
+        <div class="logout-card">
+            <a href="index.html" class="logout-link">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="VendorDashboard" class="nav-item">
+            <i class="fas fa-store"></i>
+            <span>Home</span>
+        </a>
+
+        <a href="VendorOrderHistory" class="nav-item">
+            <i class="fas fa-receipt"></i>
+            <span>Orders</span>
+        </a>
+
+        <a href="VendorMenu" class="nav-item">
+            <i class="fas fa-bars"></i>
+            <span>Menu</span>
+        </a>
+
+        <a href="VendorProfile" class="nav-item active">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+</body>

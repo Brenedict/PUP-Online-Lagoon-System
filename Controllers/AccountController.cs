@@ -55,7 +55,8 @@ namespace PUP_Online_Lagoon_System.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.Email),
-                    new Claim("UserId", user.User_ID)
+                    new Claim("UserId", user.User_ID),
+                    new Claim("Role", user.Role.ToLower())
                 };
 
                 //  Contains the list of claims made declared (name: "email" & UserID: "user_ID")
@@ -65,12 +66,25 @@ namespace PUP_Online_Lagoon_System.Controllers
                 //  Creates the actual cookie
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
+                if(user.Role == "admin")
+                {
+                    return RedirectToAction("AdminDashboard", "Admin");
+                }
+                else if (user.Role == "vendor")
+                {
+                    return RedirectToAction("VendorDashboard", "Vendor");
+                }
+                else if (user.Role == "customer")
+                {
+                    return RedirectToAction("Dashboard", "Customer");
+                }
+
                 return RedirectToAction("Index");
             }
             else
             {
                 Console.WriteLine("Login Failed.");
-                return View(); // Redirect to actual role home page
+                return View(); 
             }
 
         }

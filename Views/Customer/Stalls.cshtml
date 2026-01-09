@@ -1,0 +1,122 @@
+﻿
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Stalls - PUP Lagoon</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/customer/stalls.css" asp-append-version="true">
+</head>
+<body>
+
+    <header class="stalls-header">
+        <div class="header-top">
+            <a href="dashboard.html" class="back-icon">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 class="header-title">Food Stalls</h1>
+        </div>
+
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" placeholder="Search food stalls..." class="search-input">
+        </div>
+    </header>
+
+    <div class="main-content">
+        <p class="result-count">5 stalls available</p>
+
+        <a href="stall-menu.html" style="text-decoration: none; color: inherit; display: block;">
+            <div class="stall-card">
+                <div class="stall-img-box">
+                    <i class="fas fa-bowl-food" style="color: #6b7280; font-size: 20px;"></i>
+                </div>
+                <div class="stall-info">
+                    <h3 class="stall-name">Ate Maria's Carinderia</h3>
+                    <span class="status-badge status-open">Open</span>
+                    <span class="time-text"><i class="far fa-clock"></i> 10-15 mins</span>
+                </div>
+                <div class="arrow-icon">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+        </a>
+
+        <div class="stall-card">
+            <div class="stall-img-box">
+                <i class="fas fa-drumstick-bite" style="color: #6b7280; font-size: 20px;"></i>
+            </div>
+            <div class="stall-info">
+                <h3 class="stall-name">Manong's Chicken BBQ</h3>
+                <span class="status-badge status-open">Open</span>
+                <span class="time-text"><i class="far fa-clock"></i> 15-20 mins</span>
+            </div>
+            <div class="arrow-icon">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </div>
+
+        <div class="stall-card">
+            <div class="stall-img-box">
+                <i class="fas fa-utensils" style="color: #6b7280; font-size: 20px;"></i>
+            </div>
+            <div class="stall-info">
+                <h3 class="stall-name">Kuya's Pancit House</h3>
+                <span class="status-badge status-open">Open</span>
+                <span class="time-text"><i class="far fa-clock"></i> 10-12 mins</span>
+            </div>
+            <div class="arrow-icon">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </div>
+
+        <div class="stall-card">
+            <div class="stall-img-box">
+                <i class="fas fa-rice-bowl" style="color: #6b7280; font-size: 20px;"></i>
+            </div>
+            <div class="stall-info">
+                <h3 class="stall-name">Aling Nena's Lutong Bahay</h3>
+                <span class="status-badge status-closed">Closed</span>
+                <span class="time-text"><i class="far fa-clock"></i> 12-15 mins</span>
+            </div>
+        </div>
+
+        <div class="stall-card">
+            <div class="stall-img-box">
+                <i class="fas fa-bread-slice" style="color: #6b7280; font-size: 20px;"></i>
+            </div>
+            <div class="stall-info">
+                <h3 class="stall-name">Sari-Sari Snacks</h3>
+                <span class="status-badge status-open">Open</span>
+                <span class="time-text"><i class="far fa-clock"></i> 5-8 mins</span>
+            </div>
+            <div class="arrow-icon">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </div>
+
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="Dashboard" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="Stalls" class="nav-item active">
+            <i class="fas fa-store"></i>
+            <span>Stalls</span>
+        </a>
+        <a href="OrderHistory" class="nav-item">
+            <i class="fas fa-receipt"></i>
+            <span>Orders</span>
+        </a>
+        <a href="Profile" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+</body>
+</html>

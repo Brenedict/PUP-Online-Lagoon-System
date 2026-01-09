@@ -1,68 +1,137 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-:root {
-    --pup-maroon: #800000;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+﻿:root {
+    --primary-red: #800000;
+    --white: #ffffff;
+    --text-dark: #333333;
 }
 
 body {
-    background-color: var(--pup-maroon);
-}
-
-.page {
-    display: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--primary-red);
     height: 100vh;
-    flex-direction: column;
-    width: 100%;
-    position: relative;
-}
-
-.active {
     display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevent scrolling on main page */
 }
 
-#landing-page {
-    background-color: var(--pup-maroon);
-    color: white;
+/* --- HERO SECTION STYLES --- */
+.hero-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
     text-align: center;
-    max-width: 1040px;
-    margin: 0 auto;
+    padding-bottom: 80px; /* Space for footer */
 }
 
-#landing-page .logo-circle {
-    background-color: white;
-    width: 80px;
-    height: 80px;
+.logo-circle {
+    width: 100px;
+    height: 100px;
+    background-color: var(--white);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 24px auto;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.btn-pill {
+.logo-icon {
+    font-size: 40px;
+    color: var(--primary-red);
+}
+
+.app-title {
+    font-size: 24px;
     font-weight: 600;
-    padding: 14px 0;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.app-subtitle {
+    font-size: 14px;
+    font-weight: 300;
+    opacity: 0.9;
+    margin-bottom: 40px;
+    line-height: 1.4;
+    max-width: 80%;
+}
+
+/* --- BUTTON STYLES --- */
+.btn {
     width: 280px;
-    border-radius: 9999px;
+    padding: 12px 0;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 16px;
     cursor: pointer;
-    margin: 0 auto;
-    transition: opacity 0.2s;
+    margin-bottom: 16px;
+    transition: transform 0.1s;
+    text-decoration: none;
+    display: inline-block;
 }
 
-#landing-page .btn-solid {
-    background-color: white;
-    color: var(--pup-maroon);
-    border: 2px solid white;
+    .btn:active {
+        transform: scale(0.98);
+    }
+
+.btn-login {
+    background-color: var(--white);
+    color: var(--primary-red);
+    border: 2px solid var(--white);
 }
 
-#landing-page .btn-outline {
+.btn-register {
     background-color: transparent;
-    color: white;
-    border: 2px solid white;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+
+/* --- FOOTER STYLES --- */
+.footer {
+    background-color: var(--white);
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.footer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dark);
+    text-align: center;
+}
+
+.footer-icon-circle {
+    margin-bottom: 8px;
+    font-size: 24px;
+}
+
+.footer-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: #4a4a4a;
+}
+
+.icon-yellow {
+    color: #f59e0b;
+}
+
+.icon-dark {
+    color: #374151;
+}
+
+.icon-red {
+    color: #dc2626;
 }

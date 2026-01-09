@@ -1,0 +1,113 @@
+﻿:root {
+    --primary-red: #800000;
+    --bg-gray: #f9fafb;
+    --text-dark: #333333;
+    --text-gray: #6b7280;
+    --border-gray: #e5e7eb;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg-gray);
+    padding-bottom: 80px; /* Space for nav */
+}
+
+/* --- Header --- */
+.history-header {
+    background-color: var(--primary-red);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.back-button {
+    color: white;
+    font-size: 18px;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.header-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* --- Main Content --- */
+.main-content {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+.empty-history-card {
+    background-color: white;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+    padding: 60px 20px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-gray);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon-box {
+    margin-bottom: 15px;
+}
+
+.empty-text {
+    color: var(--text-gray);
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.btn-start-ordering {
+    background-color: var(--primary-red);
+    color: white;
+    text-decoration: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+    .btn-start-ordering:hover {
+        background-color: #600000;
+    }
+
+/* --- Bottom Nav --- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    border-top: 1px solid var(--border-gray);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-gray);
+    font-size: 10px;
+}
+
+    .nav-item i {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+
+    .nav-item.active {
+        color: var(--primary-red);
+    }

@@ -1,0 +1,185 @@
+﻿:root {
+    --primary-red: #800000;
+    --bg-gray: #f9fafb;
+    --text-dark: #333333;
+    --text-gray: #6b7280;
+    --green-badge: #d1fae5;
+    --green-text: #047857;
+    --red-badge: #fee2e2;
+    --red-text: #b91c1c;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg-gray);
+    padding-bottom: 80px; /* Space for nav */
+}
+
+/* --- HEADER --- */
+.stalls-header {
+    background-color: var(--primary-red);
+    padding: 20px;
+    color: white;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.back-icon {
+    color: white;
+    font-size: 18px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.header-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Search Input */
+.search-container {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 10px 10px 35px; /* Left padding for icon */
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background-color: #7f1d1d; /* Slightly darker red */
+    color: white;
+}
+
+    .search-input::placeholder {
+        color: #d1d5db;
+    }
+
+/* --- MAIN LIST --- */
+.main-content {
+    padding: 20px;
+}
+
+.result-count {
+    font-size: 13px;
+    color: var(--text-gray);
+    margin-bottom: 15px;
+}
+
+/* Stall Card */
+.stall-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid #e5e7eb;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+    .stall-card:active {
+        transform: scale(0.98);
+    }
+
+/* Image Placeholder (Grey Box) */
+.stall-img-box {
+    width: 60px;
+    height: 60px;
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.stall-info {
+    flex: 1;
+}
+
+.stall-name {
+    margin: 0 0 6px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Badges */
+.status-badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.status-open {
+    background-color: var(--green-badge);
+    color: var(--green-text);
+}
+
+.status-closed {
+    background-color: var(--red-badge);
+    color: var(--red-text);
+}
+
+.time-text {
+    font-size: 12px;
+    color: var(--text-gray);
+}
+
+.arrow-icon {
+    color: #d1d5db;
+    font-size: 14px;
+}
+
+/* --- BOTTOM NAV (Shared) --- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    border-top: 1px solid #e5e7eb;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-gray);
+    font-size: 10px;
+}
+
+    .nav-item i {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+
+    .nav-item.active {
+        color: var(--primary-red);
+    }

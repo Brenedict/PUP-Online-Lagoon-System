@@ -3,49 +3,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="~/css/login-register-form.css" asp-append-version="true" />
 </head>
-<div id="login-page" class="page form-page">
-    <div class="top-strip"></div>
-    <div class="content-wrapper">
-        <div class="form-card">
-            <div class="back-btn" onclick="showPage('landing-page')">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PUP Lagoon Food Ordering</title>
+
+    <!-- TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- LOCAL CSS -->
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+</head>
+<body>
+
+    <header class="top-header">
+        <a href="starter.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="header-title">Login</h1>
+    </header>
+
+    <div class="main-content">
+
+        <!-- Info in Middle (Bluish) -->
+        <div class="info-box">
+            <div>
+                One login for all roles. System shows appropriate interface based on your account.
+                <br><br>
+                <strong>Demo accounts:</strong>
+                <ul style="margin: 5px 0 0 0; padding-left: 20px;">
+                    <li>* Customer: Customer@pup.edu.ph / Customer123</li>
+                    <li>* Vendor: vendor1@lagoon.com / vendor123</li>
+                    <li>* Admin: admin@pup.edu.ph / admin123</li>
+                </ul>
             </div>
-            <h2 class="form-title">Login</h2>
-            <div class="role-tabs">
-                <div class="role-tab active">Customer</div>
-                <div class="role-tab">Admin</div>
-                <div class="role-tab">Vendor</div>
-            </div>
-
-            <form asp-controller="Account" asp-action="Login" method="post">
-                @* Email input *@
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input  type="email" 
-                            class="form-input" 
-                            required 
-                            placeholder="Enter your email"
-                            name="username" @* .NET automatically routes this to the parameter *@
-                    >
-                </div>
-            
-                @* Password input *@
-                <div class="form-group mb-6">
-                    <label>Password</label>
-                    <input  type="password" 
-                        class="form-input" 
-                        required 
-                        placeholder="Enter your password"
-                        name="password" @* .NET automatically routes this to the parameter *@
-                    >
-                </div>
-
-                <button type="submit" class="btn-maroon">Login</button>
-            </form>
-
-            <p class="text-center mt-6 text-sm text-gray-600">Don't have an account? <span class="text-[#800000] font-bold cursor-pointer" onclick="showPage('register-page')">Register</span></p>
         </div>
+
+        <form asp-controller="Account" asp-action="Login" method="post">
+            <div class="form-group">
+                <!-- Email Input -->
+                <div>
+                    <label class="input-label">Email Address</label>
+                    <input  type="email" 
+                            placeholder="Enter your email" 
+                            class="custom-input"
+                            required
+                           name="username" @* .NET automatically routes this to the parameter *@
+                    >
+                </div>
+
+                <div>
+                    <label class="input-label">Password</label>
+                    <input  type="password" 
+                            placeholder="Enter your password" 
+                            class="custom-input"
+                            required
+                            name="password" @* .NET automatically routes this to the parameter *@
+                    >
+                </div>
+
+                <a href="#" class="forgot-pass-link">Forgot Password?</a>
+
+                <!-- Red Login Button -->
+                <button type="submit" class="btn-login" style="display: block; text-align: center; text-decoration: none;">
+                    Login
+                </button>
+            </div>
+        </form>
+
+        <!-- Footer Text -->
+        <div class="footer-links">
+            Student without account?
+            <a href="Register" class="register-link">Register here</a>
+
+            <div class="vendor-text">
+                Vendors and Admin use fixed accounts provided by administration.
+            </div>
+        </div>
+
     </div>
-</div>
+
+</body>

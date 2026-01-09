@@ -1,0 +1,230 @@
+﻿:root {
+    --primary-red: #800000;
+    --bg-gray: #f9fafb;
+    --text-dark: #333333;
+    --text-gray: #6b7280;
+    --border-light: #e5e7eb;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg-gray);
+    padding-bottom: 80px;
+}
+
+/* --- Header --- */
+.profile-header {
+    background-color: var(--primary-red);
+    padding: 20px 20px 40px 20px;
+    color: white;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    color: white;
+    font-size: 18px;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.header-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.profile-summary {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar-circle {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+}
+
+.user-name {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.user-email {
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* --- Content Sections --- */
+.main-content {
+    padding: 20px;
+    margin-top: -10px; /* Slight overlap effect */
+}
+
+.section-label {
+    font-size: 13px;
+    color: var(--text-gray);
+    margin: 20px 0 10px 0;
+    font-weight: 500;
+}
+
+/* Forms & Cards */
+.form-card, .info-card, .logout-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-light);
+    margin-bottom: 10px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+    .input-group label, .sub-label {
+        display: block;
+        font-size: 12px;
+        color: var(--text-gray);
+        margin-bottom: 5px;
+    }
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    color: var(--text-dark);
+}
+
+    .input-field:focus {
+        border-color: var(--primary-red);
+    }
+
+.mb-4 {
+    margin-bottom: 15px;
+}
+
+/* Buttons */
+.btn-save {
+    width: 100%;
+    background-color: var(--primary-red);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+    .btn-save i {
+        margin-right: 8px;
+    }
+
+/* Account Info Rows */
+.info-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icon-square {
+    width: 40px;
+    height: 40px;
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-gray);
+}
+
+.info-label {
+    font-size: 11px;
+    color: var(--text-gray);
+    margin: 0;
+}
+
+.info-value {
+    font-size: 14px;
+    color: var(--text-dark);
+    font-weight: 600;
+    margin: 0;
+}
+
+.info-divider {
+    height: 1px;
+    background-color: #f3f4f6;
+    margin: 15px 0;
+}
+
+/* Logout Button */
+.logout-link {
+    display: flex;
+    align-items: center;
+    color: #ef4444; /* Red */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+    .logout-link i {
+        width: 30px;
+        height: 30px;
+        background-color: #fef2f2;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+    }
+
+/* --- Bottom Nav --- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    border-top: 1px solid #e5e7eb;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-gray);
+    font-size: 10px;
+}
+
+    .nav-item i {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+
+    .nav-item.active {
+        color: var(--primary-red);
+    }

@@ -1,0 +1,197 @@
+﻿
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard - Ate Maria's</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/vendor/vendor-dashboard.css" asp-append-version="true">
+</head>
+<body>
+
+    <header class="vendor-header">
+        <div class="header-content">
+            <div>
+                <h1 class="stall-title">Ate Maria's Carinderia</h1>
+                <p class="vendor-name">Maria</p>
+            </div>
+
+            <a href="vendor-profile.html" class="store-icon-btn">
+                <i class="fas fa-user"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="main-content">
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon-box bg-yellow-100 text-yellow-600">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <div>
+                    <h2 class="stat-num">1</h2>
+                    <p class="stat-label">Pending</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon-box bg-blue-100 text-blue-600">
+                    <i class="fas fa-box-open"></i>
+                </div>
+                <div>
+                    <h2 class="stat-num">1</h2>
+                    <p class="stat-label">Preparing</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon-box bg-green-100 text-green-600">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div>
+                    <h2 class="stat-num">1</h2>
+                    <p class="stat-label">Ready</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon-box bg-red-100 text-red-600">
+                    <i class="fas fa-peso-sign"></i>
+                </div>
+                <div>
+                    <h2 class="stat-num">3250</h2>
+                    <p class="stat-label">Today's Revenue</p>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="section-title">Quick Actions</h3>
+        <div class="actions-grid">
+            <a href="vendor-order-history.html" style="text-decoration: none; flex: 1;">
+                <button class="btn-action-primary" style="width: 100%;">
+                    <i class="fas fa-receipt"></i> Order History
+                </button>
+            </a>
+            <a href="vendor-menu.html" style="text-decoration: none; flex: 1;">
+                <button class="btn-action-outline" style="width: 100%;">
+                    <i class="fas fa-bars"></i> Manage Menu
+                </button>
+            </a>
+        </div>
+
+        <h3 class="section-title">Active Orders</h3>
+
+        <div class="order-card">
+            <div class="order-header">
+                <div>
+                    <h4 class="customer-name">Juan Dela Cruz</h4>
+                    <p class="order-id">Order #ORD123456</p>
+                </div>
+                <span class="badge badge-pending">Pending</span>
+            </div>
+
+            <div class="order-items">
+                <p>1x Chicken Adobo</p>
+                <p>1x Pork Sisig</p>
+            </div>
+
+            <div class="order-meta">
+                <span>Pickup: 11:30 AM</span>
+                <span class="price">₱140.00</span>
+            </div>
+
+            <div class="status-control">
+                <label>Update Status:</label>
+                <select class="status-select">
+                    <option selected>Pending</option>
+                    <option>Preparing</option>
+                    <option>Ready</option>
+                    <option>Completed</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="order-card">
+            <div class="order-header">
+                <div>
+                    <h4 class="customer-name">Maria Santos</h4>
+                    <p class="order-id">Order #ORD123457</p>
+                </div>
+                <span class="badge badge-preparing">Preparing</span>
+            </div>
+
+            <div class="order-items">
+                <p>2x Beef Tapa</p>
+            </div>
+
+            <div class="order-meta">
+                <span>Pickup: 12:00 PM</span>
+                <span class="price">₱155.00</span>
+            </div>
+
+            <div class="status-control">
+                <label>Update Status:</label>
+                <select class="status-select">
+                    <option>Pending</option>
+                    <option selected>Preparing</option>
+                    <option>Ready</option>
+                    <option>Completed</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="order-card">
+            <div class="order-header">
+                <div>
+                    <h4 class="customer-name">Pedro Garcia</h4>
+                    <p class="order-id">Order #ORD123458</p>
+                </div>
+                <span class="badge badge-ready">Ready</span>
+            </div>
+
+            <div class="order-items">
+                <p>1x Lechon Kawali</p>
+            </div>
+
+            <div class="order-meta">
+                <span>Pickup: 12:15 PM</span>
+                <span class="price">₱85.00</span>
+            </div>
+
+            <div class="status-control">
+                <label>Update Status:</label>
+                <select class="status-select">
+                    <option>Pending</option>
+                    <option>Preparing</option>
+                    <option selected>Ready</option>
+                    <option>Completed</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+    <nav class="bottom-nav">
+        <a href="VendorDashboard" class="nav-item active">
+            <i class="fas fa-store"></i>
+            <span>Home</span>
+        </a>
+
+        <a href="VendorOrderHistory" class="nav-item">
+            <i class="fas fa-receipt"></i>
+            <span>Orders</span>
+        </a>
+
+        <a href="VendorMenu" class="nav-item">
+            <i class="fas fa-bars"></i>
+            <span>Menu</span>
+        </a>
+
+        <a href="VendorProfile" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+</body>

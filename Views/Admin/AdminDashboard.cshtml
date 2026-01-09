@@ -1,0 +1,179 @@
+﻿
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - PUP Lagoon</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/admin/admin-dashboard.css" asp-append-version="true">
+</head>
+<body>
+
+    <div class="admin-container">
+
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-circle">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <div>
+                    <h1 class="brand-title">PUP Lagoon</h1>
+                    <p class="brand-subtitle">Admin Portal</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="AdminDashboard" class="nav-link active">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="AdminManageUsers" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span>
+                </a>
+                <a href="AdminManageStalls" class="nav-link">
+                    <i class="fas fa-cubes"></i>
+                    <span>Food Stalls</span>
+                </a>
+                <a href="AdminManageOrders" class="nav-link">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Orders</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a asp-controller="Account" asp-action="Logout" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="top-header">
+                <h2 class="page-header-title">PUP Lagoon Food Ordering System</h2>
+                <div class="admin-profile">
+                    <div class="avatar-circle">A</div>
+                    <div class="profile-text">
+                        <p class="admin-name">Admin User</p>
+                        <p class="admin-role">Administrator <i class="fas fa-chevron-down"></i></p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <div class="welcome-section">
+                    <h1 class="page-title">Dashboard Overview</h1>
+                    <p class="welcome-text">Welcome back, Ate Maria</p>
+                </div>
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="icon-box bg-blue-100 text-blue-600">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <span class="stat-badge text-green-500">+12%</span>
+                        </div>
+                        <p class="stat-label">Total Users</p>
+                        <h3 class="stat-number">1,247</h3>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="icon-box bg-purple-100 text-purple-600">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <span class="stat-badge text-green-500">+2</span>
+                        </div>
+                        <p class="stat-label">Total Vendors/Stalls</p>
+                        <h3 class="stat-number">12</h3>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="icon-box bg-green-100 text-green-600">
+                                <i class="fas fa-cube"></i>
+                            </div>
+                            <span class="stat-badge text-gray-500">Active</span>
+                        </div>
+                        <p class="stat-label">Active Food Stalls</p>
+                        <h3 class="stat-number">8</h3>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="icon-box bg-red-100 text-red-600">
+                                <i class="fas fa-shopping-basket"></i>
+                            </div>
+                            <span class="stat-badge text-green-500">+23%</span>
+                        </div>
+                        <p class="stat-label">Total Orders Today</p>
+                        <h3 class="stat-number">89</h3>
+                    </div>
+
+                </div>
+
+                <div class="activity-panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Recent Activity</h3>
+                        <i class="fas fa-chart-line text-gray-400"></i>
+                    </div>
+
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="dot bg-blue-500"></div>
+                            <div class="activity-info">
+                                <p class="activity-text">New order from Juan Dela Cruz</p>
+                                <span class="activity-time">5 min ago</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="dot bg-purple-500"></div>
+                            <div class="activity-info">
+                                <p class="activity-text">New vendor registration: Kuya's BBQ House</p>
+                                <span class="activity-time">15 min ago</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="dot bg-blue-500"></div>
+                            <div class="activity-info">
+                                <p class="activity-text">Order #ORD123456 completed</p>
+                                <span class="activity-time">32 min ago</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="dot bg-green-500"></div>
+                            <div class="activity-info">
+                                <p class="activity-text">New student registered: Maria Santos</p>
+                                <span class="activity-time">1 hour ago</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="dot bg-blue-500"></div>
+                            <div class="activity-info">
+                                <p class="activity-text">New order from Pedro Garcia</p>
+                                <span class="activity-time">1 hour ago</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer">
+                        <a href="#" class="view-all-link">View All Activity →</a>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+</body>

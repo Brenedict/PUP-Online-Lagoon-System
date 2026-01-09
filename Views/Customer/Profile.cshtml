@@ -1,0 +1,115 @@
+﻿
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - PUP Lagoon</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/customer/profile.css" asp-append-version="true">
+</head>
+<body>
+
+    <header class="profile-header">
+        <div class="header-top">
+            <a href="dashboard.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 class="header-title">My Profile</h1>
+        </div>
+
+        <div class="profile-summary">
+            <div class="avatar-circle">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-text">
+                <h2 class="user-name">Juan Dela Cruz</h2>
+                <p class="user-email">student@pup.edu.ph</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+
+        <h3 class="section-label">Personal Information</h3>
+        <div class="form-card">
+            <div class="input-group">
+                <label>First Name</label>
+                <input type="text" value="Juan" class="input-field">
+            </div>
+            <div class="input-group">
+                <label>Last Name</label>
+                <input type="text" value="Dela Cruz" class="input-field">
+            </div>
+            <div class="input-group">
+                <label>Contact Number</label>
+                <input type="text" placeholder="0912 345 6789" class="input-field">
+            </div>
+
+            <button class="btn-save">Save Profile</button>
+        </div>
+
+        <h3 class="section-label">Account Information</h3>
+        <div class="info-card">
+            <div class="info-row">
+                <div class="icon-square"><i class="far fa-id-card"></i></div>
+                <div>
+                    <p class="info-label">User ID</p>
+                    <p class="info-value">1111</p>
+                </div>
+            </div>
+            <div class="info-divider"></div>
+            <div class="info-row">
+                <div class="icon-square"><i class="far fa-envelope"></i></div>
+                <div>
+                    <p class="info-label">Email</p>
+                    <p class="info-value">student@pup.edu.ph</p>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="section-label">Current Password</h3>
+        <div class="form-card">
+            <input type="password" placeholder="Enter current password" class="input-field mb-4">
+
+            <label class="sub-label">New Password</label>
+            <input type="password" placeholder="At least 6 characters" class="input-field mb-4">
+
+            <label class="sub-label">Confirm New Password</label>
+            <input type="password" placeholder="Re-enter new password" class="input-field mb-4">
+
+            <button class="btn-save">
+                <i class="fas fa-lock"></i> Update Password
+            </button>
+        </div>
+
+        <div class="logout-card">
+            <a href="index.html" class="logout-link">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="Dashboard" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="Stalls" class="nav-item">
+            <i class="fas fa-store"></i>
+            <span>Stalls</span>
+        </a>
+        <a href="OrderHistory" class="nav-item">
+            <i class="fas fa-receipt"></i>
+            <span>Orders</span>
+        </a>
+        <a href="Profile" class="nav-item active">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+</body>
+</html>
