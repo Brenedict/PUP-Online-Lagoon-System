@@ -11,26 +11,26 @@ namespace PUP_Online_Lagoon_System.Models.Orders
         public string Order_ID { get; set; }
 
         [Required]
-        public string OrderDate { get; set; }
+        public string OrderDate { get; set; } = "";
 
         [Required]
-        public string OrderTime { get; set; }
+        public string OrderTime { get; set; } = "";
 
         [Required]
-        public string OrderStatus { get; set; }
+        public string OrderStatus { get; set; } = "";
 
         [Required]
-        public string EstPickupTime { get; set; }
+        public string EstPickupTime { get; set; } = "";
 
         //  Foreign Keys
-        public string Customer_ID { get; set; }
+        public string? Customer_ID { get; set; }
 
         [ForeignKey("Customer_ID")]
-        public Customer Customer { get; set; }
+        public Customer? Customer { get; set; }
 
-        public string Stall_ID { get; set; }
+        public string? Stall_ID { get; set; }
 
         [ForeignKey("Stall_ID")]
-        public FoodStall Stall { get; set; }
+        public FoodStall? Stall { get; set; }
     }
 }

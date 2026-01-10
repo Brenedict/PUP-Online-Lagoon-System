@@ -18,7 +18,7 @@
             <h1 class="header-title">@Model.stallDetails.StallName</h1>
         </div>
 
-        <a href="cart.html" class="btn-my-cart">
+        <a asp-controller="Customer" asp-action="Cart" asp-route-stallId="@Model.stallDetails.Stall_ID" method="get" class="btn-my-cart">
             <i class="fas fa-shopping-cart"></i> My Cart
         </a>
     </header>
@@ -32,26 +32,55 @@
             <p class="stall-prep-time">Prep time: @Model.stallDetails.PrepTime mins</p>
         </div>
     </div>
-
+    @if (@PUP_Online_Lagoon_System.Models.DTO.CustomerStallCheckoutDTO.staticCart.TryGetValue(Model.customerId, out List<@PUP_Online_Lagoon_System.Models.DTO.CartItem> cart))
+    {
+        foreach(var item in cart)
+        {
+            <h1>@item.FoodName: @item.Quantity</h1>
+            
+        }
+    }
     <div class="menu-container">
         @foreach(var foodItem in Model.foodItems)
         {
-            @if(foodItem.Availability != false) {
+            @if(foodItem.Availability != false && foodItem.Quantity > 0) {
                 <div class="menu-card">
                     <div class="food-img-box"></div>
                     <div class="food-details">
                         <h3 class="food-title">@foodItem.FoodName</h3>
                         <p class="food-desc">@foodItem.FoodDescription</p>
                         <p class="food-price">₱@foodItem.Price</p>
+                        <p class="food-desc">Remaining: @foodItem.Quantity</p>
 
-                        <div class="card-actions">
-                            <div class="counter-box">
-                                <button class="btn-minus">−</button>
-                                <span class="count-num">1</span>
-                                <button class="btn-plus">+</button>
+                        <form asp-action="AddToCart" method="post">
+                            @* Hidden fields pass the data without cluttering the UI *@
+                            <input type="hidden" name="foodId" value="@foodItem.Food_ID" />
+                            <input type="hidden" name="foodName" value="@foodItem.FoodName" />
+                            <input type="hidden" name="price" value="@foodItem.Price" />
+                            <input type="hidden" name="stallId" value="@Model.stallDetails.Stall_ID" />
+
+                            @* The dynamic quantity controlled by your JS *@
+                            <input type="hidden" name="quantity" id="@foodItem.Food_ID" value="1" />
+
+                            <div class="card-actions">
+                                <div class="counter-box">
+                                    <button type="button"
+                                            class="btn-minus"
+                                            onclick="reduceQuantity('@foodItem.Food_ID')">
+                                        −
+                                    </button>
+
+                                    <span class="count-num" id="display-@foodItem.Food_ID">1</span>
+
+                                    <button type="button"
+                                            class="btn-plus"
+                                            onclick="increaseQuantity('@foodItem.Food_ID', @foodItem.Quantity)">
+                                        +
+                                    </button>
+                                </div>
+                                <button type="submit" class="btn-add-cart">Add to Cart</button>
                             </div>
-                            <button class="btn-add-cart">Add to Cart</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             }
@@ -68,47 +97,31 @@
                 </div>
             }
         }
-        
-
-        @* 
-
-        <div class="menu-card">
-            <div class="food-img-box"></div>
-            <div class="food-details">
-                <h3 class="food-title">Chicken Adobo with Rice</h3>
-                <p class="food-desc">Description</p>
-                <p class="food-price">₱55.00</p>
-
-                <div class="card-actions">
-                    <div class="counter-box">
-                        <button class="btn-minus">−</button>
-                        <span class="count-num">1</span>
-                        <button class="btn-plus">+</button>
-                    </div>
-                    <button class="btn-add-cart">Add to Cart</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="menu-card">
-            <div class="food-img-box"></div>
-            <div class="food-details">
-                <h3 class="food-title">Chicken Adobo with Rice</h3>
-                <p class="food-desc">Description</p>
-                <p class="food-price">₱55.00</p>
-
-                <div class="card-actions">
-                    <div class="counter-box">
-                        <button class="btn-minus">−</button>
-                        <span class="count-num">1</span>
-                        <button class="btn-plus">+</button>
-                    </div>
-                    <button class="btn-add-cart">Add to Cart</button>
-                </div>
-            </div>
-        </div> *@
-
     </div>
 
 </body>
-</html>
+<script>
+    function quantityUpdateTag(food_Id, newQuantity) {
+        const quantityElement = document.getElementById(`display-${food_Id}`);
+        quantityElement.textContent = newQuantity;
+    }
+    
+    function reduceQuantity(food_Id) 
+    {
+        const quantityElement = document.getElementById(`${food_Id}`);
+        quantityElement.value -= (quantityElement.value <= 1) ? 0 : 1;
+
+        quantityUpdateTag(food_Id, quantityElement.value);
+    }
+
+    function increaseQuantity(food_Id, quantity)
+    {
+        const quantityElement = document.getElementById(`${food_Id}`);
+
+        if(quantityElement.value < quantity) {
+            quantityElement.value = parseInt(quantityElement.value) + 1;
+        }
+
+        quantityUpdateTag(food_Id, quantityElement.value);
+    }
+</script>

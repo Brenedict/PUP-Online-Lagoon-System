@@ -60,6 +60,11 @@ namespace PUP_Online_Lagoon_System.Service
             return stallId;
         }
 
+        public FoodItem getFoodDetails(string foodId)
+        {
+            return _dbContext.FoodItems.FirstOrDefault(f => f.Food_ID == foodId);
+        }
+
         public void addNewFoodItem()
         {
             var newFoodItem = new FoodItem
@@ -86,6 +91,7 @@ namespace PUP_Online_Lagoon_System.Service
                 existingItem.FoodName = updatedItem.FoodName;
                 existingItem.FoodDescription = updatedItem.FoodDescription;
                 existingItem.Price = updatedItem.Price;
+                existingItem.Quantity = updatedItem.Quantity;
 
                 _dbContext.SaveChanges();
             }

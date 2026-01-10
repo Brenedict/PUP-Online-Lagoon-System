@@ -1,4 +1,5 @@
-﻿<head>
+﻿@model PUP_Online_Lagoon_System.Models.DTO.CustomerStallCheckoutDTO;
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Cart</title>
@@ -16,52 +17,41 @@
     </header>
 
     <div class="cart-container">
+        @if (@PUP_Online_Lagoon_System.Models.DTO.CustomerStallCheckoutDTO.staticCart.TryGetValue(Model.customerId, out List<@PUP_Online_Lagoon_System.Models.DTO.CartItem> cart))
+        {
+            foreach (var cartItem in cart)
+            {
+                <div class="cart-item">
+                    <div class="item-img-box"></div> <div class="item-details">
+                        <h3 class="item-name">@cartItem.FoodName</h3>
+                        <p class="item-desc">@cartItem.FoodDescription</p>
+                        <p class="item-price">₱65</p>
 
-        <div class="cart-item">
-            <div class="item-img-box"></div> <div class="item-details">
-                <h3 class="item-name">Chicken Adobo with Rice</h3>
-                <p class="item-desc">Description</p>
-                <p class="item-price">₱55.00</p>
+                        <div class="counter-box">
+                            <button class="btn-minus" onclick="reduceQuantity('@cartItem.Food_ID')">−</button>
+                            <span class="count-num" id="@cartItem.Food_ID">@cartItem.Quantity</span>
+                            <button class="btn-plus" onclick="increaseQuantity('@cartItem.Food_ID', @cartItem.totalQuantityRemain)">+</button> 
+                        </div>
+                    </div>
 
-                <div class="counter-box">
-                    <button class="btn-minus">−</button>
-                    <span class="count-num">2</span>
-                    <button class="btn-plus">+</button>
+                    <div class="item-actions">
+                        <span class="item-total-price">₱@cartItem.Price</span>
+                        <form asp-controller="Customer" asp-action="RemoveFromCart" method="post">
+                            <input type="hidden" name="foodId" value="@cartItem.Food_ID" />
+                            <input type="hidden" name="stallId" value="@cartItem.Stall_ID" />
+                            <input type="hidden" name="customerId" value="@Model.customerId" />
+                            <button class="btn-delete">
+                                <i class="fas fa-trash-can"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-
-            <div class="item-actions">
-                <span class="item-total-price">₱110.00</span>
-                <button class="btn-delete">
-                    <i class="fas fa-trash-can"></i>
-                </button>
-            </div>
-        </div>
-
-        <div class="cart-item">
-            <div class="item-img-box"></div>
-
-            <div class="item-details">
-                <h3 class="item-name">Pork Sinigang</h3>
-                <p class="item-desc">Description</p>
-                <p class="item-price">₱60.00</p>
-
-                <div class="counter-box">
-                    <button class="btn-minus">−</button>
-                    <span class="count-num">1</span>
-                    <button class="btn-plus">+</button>
-                </div>
-            </div>
-
-            <div class="item-actions">
-                <span class="item-total-price">₱60.00</span>
-                <button class="btn-delete">
-                    <i class="fas fa-trash-can"></i>
-                </button>
-            </div>
-        </div>
-
-    </div>
+            }
+        } 
+        else
+        {
+            <h1>No item here yet...</h1>
+        }
 
     <div class="cart-footer">
         <div class="summary-row">
@@ -77,10 +67,28 @@
             <span class="total-amount">₱175.00</span>
         </div>
 
-        <a href="checkout.html" class="btn-checkout" style="text-decoration: none; display: block; text-align: center;">
+        <a asp-controller="Customer" asp-action="Checkout" class="btn-checkout" style="text-decoration: none; display: block; text-align: center;">
             Proceed to Checkout
         </a>
     </div>
 
 </body>
-</html>
+
+<script>
+    function reduceQuantity(food_Id)
+    {
+        const quantityElement = document.getElementById(`${food_Id}`);
+        quantityElement.textContent -= 1;
+    }
+
+    function increaseQuantity(food_Id, quantity)
+    {
+        const quantityElement = document.getElementById(`${food_Id}`);
+
+        if(quantityElement.textContent < quantity) {
+            quantityElement.textContent = parseInt(quantityElement.textContent) + 1;
+        }
+
+        quantityUpdateTag(food_Id, quantityElement.value);
+    }
+</script>

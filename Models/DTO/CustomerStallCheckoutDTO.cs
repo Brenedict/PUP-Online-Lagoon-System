@@ -15,6 +15,6 @@ namespace PUP_Online_Lagoon_System.Models.DTO
 
         public ItemOrder order { get; set; }
 
-        public List<OrderDetails> orderDetails { get; set; }
+        public static Dictionary<string, List<CartItem>> staticCart {get; set;} = new Dictionary<string, List<CartItem>>();
     }
 }

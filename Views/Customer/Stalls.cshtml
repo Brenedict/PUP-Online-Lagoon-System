@@ -30,33 +30,30 @@
 
         @foreach(var stall in Model)
         {
-            <form asp-controller="Customer" asp-action="StallMenu" method="post">
-                <input type="hidden" name="stallId" value="@stall.Stall_ID" />
-                <button type="submit" style="all: unset; display: block; width: 100%; text-align: left; cursor: pointer;">
-                    <div class="stall-card">
-                        <div class="stall-img-box">
-                            <i class="fas fa-rice-bowl" style="color: #6b7280; font-size: 20px;"></i>
-                        </div>
-                        <div class="stall-info">
-                            <h3 class="stall-name">@stall.StallName</h3>
-
-                            @if(stall.Status == true)
-                            {
-                                <span class="status-badge status-open">Open</span>
-                            } 
-                            else
-                            {
-                                <span class="status-badge status-closed">Closed</span>
-                            }
-
-                            <span class="time-text"><i class="far fa-clock"></i>@stall.PrepTime</span>
-                        </div>
-                        <div class="arrow-icon">
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
+            <a asp-controller="Customer" asp-action="StallMenu" asp-route-stallId="@stall.Stall_ID" style="text-decoration: none; color: inherit; display: block;">
+                <div class="stall-card">
+                    <div class="stall-img-box">
+                        <i class="fas fa-rice-bowl" style="color: #6b7280; font-size: 20px;"></i>
                     </div>
-                </button>
-            </form>
+                    <div class="stall-info">
+                        <h3 class="stall-name">@stall.StallName</h3>
+
+                        @if(stall.Status == true)
+                        {
+                            <span class="status-badge status-open">Open</span>
+                        } 
+                        else
+                        {
+                            <span class="status-badge status-closed">Closed</span>
+                        }
+
+                        <span class="time-text"><i class="far fa-clock"></i>@stall.PrepTime</span>
+                    </div>
+                    <div class="arrow-icon">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </a>
         }
         
 

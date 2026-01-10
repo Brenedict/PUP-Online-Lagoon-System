@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using PUP_Online_Lagoon_System.Models.Account;
 // Access to Data to Object (DTO's)
 using PUP_Online_Lagoon_System.Models.DTO;
+using PUP_Online_Lagoon_System.Models.Orders;
 using PUP_Online_Lagoon_System.Models.Stall;
 
 //  Accesses all services
@@ -14,6 +15,7 @@ using PUP_Online_Lagoon_System.Service;
 using System.Diagnostics;
 //  For cookies
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace PUP_Online_Lagoon_System.Controllers
 {
@@ -24,16 +26,20 @@ namespace PUP_Online_Lagoon_System.Controllers
 
         private readonly CustomerService _service;
 
-        public CustomerController(ILogger<AccountController> logger, CustomerService service)
+        private readonly OrderService _orderService;
+
+        public CustomerController(ILogger<AccountController> logger, CustomerService service, OrderService orderService)
         {
             _logger = logger;
             _service = service;
+            _orderService = orderService;
         }
 
         [HttpGet]
-        public IActionResult Cart()
+        public IActionResult Cart(string stallId)
         {
-            return View();
+            var customerStallCheckoutDTO = _service.getCustomerStallCheckoutDTO(stallId);
+            return View(customerStallCheckoutDTO); 
         }
 
         [HttpGet]
@@ -66,7 +72,7 @@ namespace PUP_Online_Lagoon_System.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult StallMenu(string stallId)
         {
             var customerStallCheckoutDTO = _service.getCustomerStallCheckoutDTO(stallId);
@@ -80,5 +86,26 @@ namespace PUP_Online_Lagoon_System.Controllers
             return View(openedStalls);
         }
 
+        private List<CartItem> GetCartFromSession()
+        {
+            var json = HttpContext.Session.GetString("UserCart");
+            return json == null ? new List<CartItem>() : JsonSerializer.Deserialize<List<CartItem>>(json);
+        }
+
+        [HttpPost]
+        public IActionResult AddToCart(string foodId, string foodName, double price, string stallId, int quantity)
+        {
+            _orderService.addToCart(foodId, foodName, price, stallId, quantity);
+
+            return RedirectToAction("StallMenu", new { stallId = stallId });
+        }
+
+        [HttpPost]
+        public IActionResult RemoveFromCart(string foodId, string stallId, string customerId)
+        {
+            _orderService.deleteCartItem(foodId, customerId);
+
+            return RedirectToAction("Cart", new { stallId = stallId });
+        }
     }
 }

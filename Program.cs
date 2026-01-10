@@ -13,6 +13,7 @@ builder.Services.AddScoped<IAuthUser, AuthService>();
 builder.Services.AddScoped<IGenerateCustomId, AuthService>();
 builder.Services.AddScoped<CustomerService>();
 builder.Services.AddScoped<VendorService>();
+builder.Services.AddScoped<OrderService>();
 
 //  Cookie claims access
 builder.Services.AddHttpContextAccessor();
@@ -35,6 +36,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     });
 
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Cart clears after 30 mins of inactivity
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,6 +56,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthentication();    //  Checks Cookie
 app.UseAuthorization();     //  Checks for [AUTHORIZE] annotations

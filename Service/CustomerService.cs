@@ -2,7 +2,9 @@
 using PUP_Online_Lagoon_System.Models;
 using PUP_Online_Lagoon_System.Models.Account;
 using PUP_Online_Lagoon_System.Models.DTO;
+using PUP_Online_Lagoon_System.Models.Orders;
 using PUP_Online_Lagoon_System.Models.Stall;
+using System.Text.Json;
 
 namespace PUP_Online_Lagoon_System.Service
 {
@@ -14,11 +16,14 @@ namespace PUP_Online_Lagoon_System.Service
 
         private readonly VendorService _vendorService;
 
-        public CustomerService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor, VendorService vendorService)
+        private readonly OrderService _orderService;
+
+        public CustomerService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor, VendorService vendorService, OrderService orderService)
         {
             _dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;
             _vendorService = vendorService;
+            _orderService = orderService;
         }
 
         public CustomerStallCheckoutDTO getCustomerStallCheckoutDTO(string stallId)
@@ -31,7 +36,7 @@ namespace PUP_Online_Lagoon_System.Service
             {
                 customerId = customerId,
                 foodItems = foodItems,
-                stallDetails = stallDetails
+                stallDetails = stallDetails,
             };
 
             return newDTO;
@@ -43,6 +48,30 @@ namespace PUP_Online_Lagoon_System.Service
                 .Where(s => s.Status == false)
                 .ToList();
         }
+
+        public void addToCart(int quantity, double price, string foodId, string orderId)
+        {
+            var existingItem = _dbContext.FoodItems.FirstOrDefault(f => f.Food_ID == foodId);
+            existingItem.Quantity -= quantity;
+
+            var existingCartItem = _dbContext.OrderDetails.FirstOrDefault(o => o.Food_ID == foodId && o.status == false && o.Order_ID == orderId);
+
+            var newCartItem = new OrderDetails
+            {
+                Food_ID = foodId,
+                Order_ID = orderId,
+                Quantity = quantity,
+                Subtotal = quantity * price,
+                status = false
+            };
+            
+        }
+
+        public void updateFoodItemQuantity(string foodId, int quantity)
+        {
+            Console.WriteLine("Reduct {0}", quantity);
+        }
+
     }
         
 
