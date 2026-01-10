@@ -10,6 +10,7 @@ using PUP_Online_Lagoon_System.Models;
 namespace PUP_Online_Lagoon_System.Controllers
 {
     //  This is a vendor controller dedicated for quick toggles
+    [Authorize(Roles = "vendor")]
     public class QuickVendorController : Controller
     {
 

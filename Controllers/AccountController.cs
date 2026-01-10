@@ -78,7 +78,7 @@ namespace PUP_Online_Lagoon_System.Controllers
                 {
                     new Claim(ClaimTypes.Name, user.Email),
                     new Claim("UserId", user.User_ID),
-                    new Claim("Role", user.Role.ToLower()),
+                    new Claim(ClaimTypes.Role, user.Role.ToLower()),
                     new Claim("RoleId", roleId)
                 };
 

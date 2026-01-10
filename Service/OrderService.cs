@@ -2,6 +2,7 @@
 using PUP_Online_Lagoon_System.Models;
 using PUP_Online_Lagoon_System.Models.Account;
 using PUP_Online_Lagoon_System.Models.DTO;
+using PUP_Online_Lagoon_System.Models.Orders;
 using PUP_Online_Lagoon_System.Models.Stall;
 
 namespace PUP_Online_Lagoon_System.Service
@@ -14,11 +15,14 @@ namespace PUP_Online_Lagoon_System.Service
 
         private readonly VendorService _vendorService;
 
-        public OrderService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor, VendorService vendorService)
+        private readonly CustomerService _customerService;
+
+        public OrderService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor, VendorService vendorService, CustomerService customerService)
         {
             _dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;
             _vendorService = vendorService;
+            _customerService = customerService;
         }
 
         public void deleteCartItem(string foodId, string customerId)
@@ -116,7 +120,53 @@ namespace PUP_Online_Lagoon_System.Service
 
             return $"{orderPrefix}001";
         }
+        public void checkoutCart(string stallId)
+        {
+            var dto = _customerService.getCustomerStallCheckoutDTO(stallId);
+
+            if (dto == null)
+            {
+                return;
+            }
+
+            string orderId = GenerateCustomOrderId();
+            string customerId = dto.customerId;
+
+            var newOrder = new ItemOrder
+            {
+                Order_ID = orderId,
+                Customer_ID = customerId,
+                Stall_ID = stallId,
+                OrderDate = DateTime.Now.ToString(),
+                OrderStatus = "pending",
+            };
+
+            _dbContext.Orders.Add(newOrder);
+            _dbContext.SaveChanges();
+
+            if(CustomerStallCheckoutDTO.staticCart.TryGetValue(customerId, out List<CartItem> cart))
+            {
+                foreach(var cartItem in cart)
+                {
+                    var newOrderDetail = new OrderDetails
+                    {
+                        Order_ID = orderId,
+                        Food_ID = cartItem.Food_ID,
+                        Quantity = cartItem.Quantity,
+                        Subtotal = cartItem.Price
+                    };
+
+                    _dbContext.OrderDetails.Add(newOrderDetail);
+                    _dbContext.SaveChanges();
+
+                    _customerService.updateFoodItemQuantity(cartItem.Food_ID, cartItem.Quantity);
+                }
+            }
+
+
+            CustomerStallCheckoutDTO.staticCart.Remove(customerId);
+
+        }
     }
         
-
 }

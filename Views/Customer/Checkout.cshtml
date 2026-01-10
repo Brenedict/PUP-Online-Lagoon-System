@@ -1,4 +1,17 @@
-﻿<head>
+﻿@model PUP_Online_Lagoon_System.Models.DTO.CustomerStallCheckoutDTO;
+
+@{
+    double total = 0;
+    if (PUP_Online_Lagoon_System.Models.DTO.CustomerStallCheckoutDTO.staticCart.TryGetValue(Model.customerId, out List<PUP_Online_Lagoon_System.Models.DTO.CartItem> cart))
+    {
+        foreach (var item in cart)
+        {
+            total += item.Price;
+        }
+    }
+}
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
@@ -65,8 +78,8 @@
     </div>
 
     <div class="bottom-bar">
-        <a href="order-success.html" class="btn-confirm" style="text-decoration: none; display: block; text-align: center;">
-            Confirm Order - ₱60.00
+        <a asp-controller="Customer" asp-action="CheckoutCart" asp-route-stallId="@Model.stallDetails.Stall_ID" class="btn-confirm" style="text-decoration: none; display: block; text-align: center;">
+            Confirm Order - ₱@total
         </a>
     </div>
 

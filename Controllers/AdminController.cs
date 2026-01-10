@@ -16,7 +16,7 @@ using System.Security.Claims;
 
 namespace PUP_Online_Lagoon_System.Controllers
 {
-    //[Authorize]
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly ILogger<AccountController> _logger;

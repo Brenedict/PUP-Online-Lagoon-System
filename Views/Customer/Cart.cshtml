@@ -67,7 +67,7 @@
             <span class="total-amount">₱175.00</span>
         </div>
 
-        <a asp-controller="Customer" asp-action="Checkout" class="btn-checkout" style="text-decoration: none; display: block; text-align: center;">
+        <a asp-controller="Customer" asp-action="Checkout" asp-route-stallId="@Model.stallDetails.Stall_ID" class="btn-checkout" style="text-decoration: none; display: block; text-align: center;">
             Proceed to Checkout
         </a>
     </div>

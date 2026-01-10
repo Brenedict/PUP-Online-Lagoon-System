@@ -19,7 +19,7 @@ using System.Text.Json;
 
 namespace PUP_Online_Lagoon_System.Controllers
 {
-    //[Authorize]
+    [Authorize(Roles = "customer")]
     public class CustomerController : Controller
     {
         private readonly ILogger<AccountController> _logger;
@@ -43,9 +43,17 @@ namespace PUP_Online_Lagoon_System.Controllers
         }
 
         [HttpGet]
-        public IActionResult Checkout()
+        public IActionResult Checkout(string stallId)
         {
-            return View();
+            var customerStallCheckoutDTO = _service.getCustomerStallCheckoutDTO(stallId);
+            return View(customerStallCheckoutDTO);
+        }
+
+        [HttpGet]
+        public IActionResult CheckoutCart(string stallId)
+        {
+            _orderService.checkoutCart(stallId);
+            return RedirectToAction("Dashboard", "Customer");
         }
 
         [HttpGet]

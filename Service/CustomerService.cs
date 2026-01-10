@@ -16,14 +16,12 @@ namespace PUP_Online_Lagoon_System.Service
 
         private readonly VendorService _vendorService;
 
-        private readonly OrderService _orderService;
 
-        public CustomerService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor, VendorService vendorService, OrderService orderService)
+        public CustomerService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor, VendorService vendorService)
         {
             _dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;
             _vendorService = vendorService;
-            _orderService = orderService;
         }
 
         public CustomerStallCheckoutDTO getCustomerStallCheckoutDTO(string stallId)
@@ -69,7 +67,11 @@ namespace PUP_Online_Lagoon_System.Service
 
         public void updateFoodItemQuantity(string foodId, int quantity)
         {
-            Console.WriteLine("Reduct {0}", quantity);
+            var existingItem = _dbContext.FoodItems.FirstOrDefault(f => f.Food_ID == foodId);
+            existingItem.Quantity -= quantity;
+
+            _dbContext.Update(existingItem);
+            _dbContext.SaveChanges();
         }
 
     }
