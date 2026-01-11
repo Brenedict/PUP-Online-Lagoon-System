@@ -19,15 +19,14 @@ namespace PUP_Online_Lagoon_System.Models.Account
         public string ContactNum { get; set; }
 
         //  Foreign Keys
-
         public string User_ID { get; set; }
 
         [ForeignKey("User_ID")]
         public User User { get; set; }
 
-        public string Stall_ID { get; set; }
+        public string? Stall_ID { get; set; }
 
         [ForeignKey("Stall_ID")]
-        public FoodStall Stall { get; set; }
+        public FoodStall? Stall { get; set; }
     }
 }

@@ -59,9 +59,9 @@ namespace PUP_Online_Lagoon_System.Service
                         Food_ID = foodId,
                         Quantity = quantity,
                         Price = price * quantity,
+                        originalPrice = price,
                         FoodName = foodItemDetails.FoodName,
                         FoodDescription = foodItemDetails.FoodDescription,
-                        //originalPrice = foodItemDetails.Price,
                         totalQuantityRemain = foodItemDetails.Quantity
                     };
 
@@ -83,7 +83,6 @@ namespace PUP_Online_Lagoon_System.Service
                     Price = price * quantity,
                     FoodName = foodItemDetails.FoodName,
                     FoodDescription = foodItemDetails.FoodDescription,
-                    //originalPrice = foodItemDetails.Price,
                     totalQuantityRemain = foodItemDetails.Quantity
                 };
 
@@ -129,6 +128,13 @@ namespace PUP_Online_Lagoon_System.Service
                 return;
             }
 
+            double orderTotal = 0.00;
+
+            foreach(var item in CustomerStallCheckoutDTO.staticCart[dto.customerId])
+            {
+                orderTotal += item.Price;
+            }
+
             string orderId = GenerateCustomOrderId();
             string customerId = dto.customerId;
 
@@ -139,6 +145,8 @@ namespace PUP_Online_Lagoon_System.Service
                 Stall_ID = stallId,
                 OrderDate = DateTime.Now.ToString(),
                 OrderStatus = "pending",
+                OrderTotal = orderTotal,
+                EstPickupTime = "10mins" // Fix this is static
             };
 
             _dbContext.Orders.Add(newOrder);
@@ -153,19 +161,97 @@ namespace PUP_Online_Lagoon_System.Service
                         Order_ID = orderId,
                         Food_ID = cartItem.Food_ID,
                         Quantity = cartItem.Quantity,
-                        Subtotal = cartItem.Price
+                        Subtotal = cartItem.Price,
+                        OriginalPrice = cartItem.originalPrice,
+                        FoodName = cartItem.FoodName
                     };
 
                     _dbContext.OrderDetails.Add(newOrderDetail);
                     _dbContext.SaveChanges();
 
-                    _customerService.updateFoodItemQuantity(cartItem.Food_ID, cartItem.Quantity);
+                    updateFoodItemQuantity(cartItem.Food_ID, cartItem.Quantity);
                 }
             }
 
 
             CustomerStallCheckoutDTO.staticCart.Remove(customerId);
 
+        }
+
+        public void updateFoodItemQuantity(string foodId, int quantity)
+        {
+            var existingItem = _dbContext.FoodItems.FirstOrDefault(f => f.Food_ID == foodId);
+            existingItem.Quantity -= quantity;
+
+            _dbContext.Update(existingItem);
+            _dbContext.SaveChanges();
+        }
+
+        public CustomerOrdersDTO getCustomerOrdersDTO(bool isForDashboard)
+        {
+            
+            if(!_httpContextAccessor.HttpContext.User.IsInRole("customer"))
+            {
+                return new CustomerOrdersDTO();
+            }
+
+            CustomerOrdersDTO newDTO = new CustomerOrdersDTO();
+
+            string customerId = _httpContextAccessor.HttpContext.User.FindFirst("RoleId")?.Value;
+            List<ItemOrder> ordersList = (isForDashboard == true) ? getCustomerIncompleteOrdersList(customerId) : getCustomerOrdersList(customerId);
+
+            newDTO.customerId = customerId;
+            newDTO.ordersList = ordersList;
+
+            if (ordersList .Count > 0)
+            {
+                newDTO.isEmptyOrders = false;
+
+                foreach (var order in ordersList)
+                {
+                    newDTO.orderDetails.TryAdd(order.Order_ID, getOrderDetailsList(order.Order_ID));
+                }
+            } 
+
+            else
+            {
+                newDTO.isEmptyOrders = true;
+            }
+
+            return newDTO;
+        }
+
+        public List<ItemOrder> getCustomerOrdersList(string customerId)
+        {
+            return _dbContext.Orders
+                .Where(o => o.Customer_ID== customerId)
+                .ToList();
+        }
+        public List<ItemOrder> getCustomerIncompleteOrdersList(string customerId)
+        {
+            return _dbContext.Orders
+                .Where(o => o.Customer_ID == customerId && o.OrderStatus.ToLower() != "cancelled" && o.OrderStatus.ToLower() != "completed")
+                .ToList();
+        }
+
+        public List<ItemOrder> getStallOrdersList(string stallId)
+        {
+            return _dbContext.Orders
+                .Where(o => o.Stall_ID== stallId)
+                .ToList();
+        }
+
+        public List<ItemOrder> getAllOrdersList()
+        {
+            return _dbContext.Orders.ToList();
+        }
+
+
+        public List<OrderDetails> getOrderDetailsList(string orderId)
+        {
+            return _dbContext.OrderDetails
+                .Where(o => o.Order_ID == orderId)
+                .ToList();
         }
     }
         

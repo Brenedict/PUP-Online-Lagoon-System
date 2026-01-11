@@ -14,10 +14,10 @@ namespace PUP_Online_Lagoon_System.Models.Orders
         public string OrderDate { get; set; } = "";
 
         [Required]
-        public string OrderTime { get; set; } = "";
+        public string OrderStatus { get; set; } = "";
 
         [Required]
-        public string OrderStatus { get; set; } = "";
+        public double OrderTotal { get; set; } = 0.00;
 
         [Required]
         public string EstPickupTime { get; set; } = "";

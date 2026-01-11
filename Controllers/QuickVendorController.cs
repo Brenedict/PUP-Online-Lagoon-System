@@ -39,5 +39,21 @@ namespace PUP_Online_Lagoon_System.Controllers
             return RedirectToAction("VendorMenu", "Vendor");
         }
 
+        [HttpPost]
+        public IActionResult ToggleStallStatus(string stallId)
+        {
+            var stall = _dbContext.FoodStalls.FirstOrDefault(f => f.Stall_ID == stallId);
+
+            if (stall != null)
+            {
+                stall.Status = !(stall.Status);
+
+                _dbContext.SaveChanges();
+            }
+
+
+            return RedirectToAction("VendorProfile", "Vendor");
+        }
+
     }
 }

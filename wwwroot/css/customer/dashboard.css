@@ -152,14 +152,14 @@ body {
     font-size: 10px;
 }
 
-    .nav-item i {
-        font-size: 20px;
-        margin-bottom: 4px;
-    }
+.nav-item i {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
 
-    .nav-item.active {
-        color: var(--primary-red); /* Active tab is red */
-    }
+.nav-item.active {
+    color: var(--primary-red); /* Active tab is red */
+}
 
 .user-id {
     font-size: 12px;
@@ -168,3 +168,121 @@ body {
     font-weight: 400;
     letter-spacing: 0.5px;
 }
+
+/* --- Styles for the Expanded Order Card --- */
+
+.details-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid #f3f4f6;
+    margin-bottom: 20px;
+}
+
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.stall-name-large {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+}
+
+.order-id {
+    font-size: 12px;
+    color: #9ca3af;
+    margin: 2px 0 0 0;
+}
+
+/* Status Badge (Pending is Yellowish in your pic) */
+.status-pending {
+    background-color: #fef9c3;
+    color: #854d0e;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.time-row {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 15px;
+}
+
+    .time-row i {
+        margin-right: 6px;
+    }
+
+.price-right {
+    margin-left: auto; /* Pushes price to far right */
+    font-weight: 700;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Hide Details Toggle */
+.toggle-row {
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    text-align: right; /* Aligns link to right if needed, or left */
+}
+
+.hide-details-link {
+    font-size: 12px;
+    color: #b91c1c; /* Red text */
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Order Items Section */
+.order-items-container {
+    background-color: #f9fafb; /* Light gray background for items */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.items-label {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0 0 10px 0;
+}
+
+.order-item-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Cancel Button */
+.btn-cancel-order {
+    width: 100%;
+    background-color: #dc2626; /* Bright Red */
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+    .btn-cancel-order:hover {
+        background-color: #b91c1c;
+    }

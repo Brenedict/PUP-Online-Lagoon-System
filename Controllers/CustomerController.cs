@@ -59,7 +59,9 @@ namespace PUP_Online_Lagoon_System.Controllers
         [HttpGet]
         public IActionResult Dashboard()
         {
-            return View();
+            bool isForDashboard = true;
+            var customerOrdersDTO = _orderService.getCustomerOrdersDTO(isForDashboard);
+            return View(customerOrdersDTO);
         }
 
         [HttpGet]
@@ -92,12 +94,6 @@ namespace PUP_Online_Lagoon_System.Controllers
         {
             var openedStalls = _service.GetOpenFoodStalls();
             return View(openedStalls);
-        }
-
-        private List<CartItem> GetCartFromSession()
-        {
-            var json = HttpContext.Session.GetString("UserCart");
-            return json == null ? new List<CartItem>() : JsonSerializer.Deserialize<List<CartItem>>(json);
         }
 
         [HttpPost]

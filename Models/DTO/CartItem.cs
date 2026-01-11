@@ -10,7 +10,7 @@ namespace PUP_Online_Lagoon_System.Models.DTO
         public string Food_ID { get; set; }
         public string FoodName { get; set; }
         public string FoodDescription { get; set; }
-        public int originalPrice { get; set; }
+        public double originalPrice { get; set; }
         public int totalQuantityRemain { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }

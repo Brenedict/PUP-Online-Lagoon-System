@@ -42,36 +42,7 @@ namespace PUP_Online_Lagoon_System.Service
 
         public List<FoodStall> GetOpenFoodStalls()
         {
-            return _dbContext.FoodStalls
-                .Where(s => s.Status == false)
-                .ToList();
-        }
-
-        public void addToCart(int quantity, double price, string foodId, string orderId)
-        {
-            var existingItem = _dbContext.FoodItems.FirstOrDefault(f => f.Food_ID == foodId);
-            existingItem.Quantity -= quantity;
-
-            var existingCartItem = _dbContext.OrderDetails.FirstOrDefault(o => o.Food_ID == foodId && o.status == false && o.Order_ID == orderId);
-
-            var newCartItem = new OrderDetails
-            {
-                Food_ID = foodId,
-                Order_ID = orderId,
-                Quantity = quantity,
-                Subtotal = quantity * price,
-                status = false
-            };
-            
-        }
-
-        public void updateFoodItemQuantity(string foodId, int quantity)
-        {
-            var existingItem = _dbContext.FoodItems.FirstOrDefault(f => f.Food_ID == foodId);
-            existingItem.Quantity -= quantity;
-
-            _dbContext.Update(existingItem);
-            _dbContext.SaveChanges();
+            return _dbContext.FoodStalls.ToList();
         }
 
     }

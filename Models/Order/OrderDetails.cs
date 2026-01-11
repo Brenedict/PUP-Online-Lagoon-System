@@ -16,16 +16,19 @@ namespace PUP_Online_Lagoon_System.Models.Orders
         public double Subtotal { get; set; }
 
         [Required]
-        public bool status { get; set; }
+        public double OriginalPrice { get; set; }
+
+        [Required]
+        public string FoodName { get; set; }
 
         public string? Order_ID { get; set; }
 
         [ForeignKey("Order_ID")]
         public ItemOrder? Order { get; set; }
 
-        public string Food_ID { get; set; }
+        public string? Food_ID { get; set; }
 
         [ForeignKey("Food_ID")]
-        public FoodItem Food { get; set; }
+        public FoodItem? Food { get; set; }
     }
 }

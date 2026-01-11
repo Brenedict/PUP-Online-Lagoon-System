@@ -1,4 +1,5 @@
-﻿
+﻿@model PUP_Online_Lagoon_System.Models.DTO.CustomerOrdersDTO;
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,6 @@
     <link rel="stylesheet" href="~/css/customer/dashboard.css" asp-append-version="true">
 </head>
 <body>
-
     <header class="dashboard-header">
         <div class="user-info">
             <span class="welcome-text">Welcome back,</span>
@@ -25,7 +25,7 @@
 
     <div class="stats-container">
         <div class="stat-item">
-            <span class="stat-number">0</span>
+            <span class="stat-number">@Model.ordersList.Count()</span>
             <span class="stat-label">Active Orders</span>
         </div>
         <div class="stat-divider"></div>
@@ -35,17 +35,72 @@
         </div>
     </div>
 
-    <div class="main-content">
-        <h2 class="section-title">Active Orders</h2>
+    @if(Model.ordersList.Count <= 0) {
+        <div class="main-content">
+            <h2 class="section-title">Active Orders</h2>
 
-        <div class="empty-state-card">
-            <i class="fas fa-shopping-bag empty-icon"></i>
-            <p class="empty-text">No active orders</p>
-            <a asp-controller="Customer" asp-action="Stalls" class="btn-browse" style="text-decoration:none; display:inline-block;">
-                Browse Food Stalls
-            </a>
+            <div class="empty-state-card">
+                <i class="fas fa-shopping-bag empty-icon"></i>
+                <p class="empty-text">No active orders</p>
+                <a asp-controller="Customer" asp-action="Stalls" class="btn-browse" style="text-decoration:none; display:inline-block;">
+                    Browse Food Stalls
+                </a>
+            </div>
         </div>
-    </div>
+    }
+    else
+    {
+        foreach(var order in Model.ordersList)
+        {
+            
+        <div class="main-content">
+            <h2 class="section-title">Active Orders</h2>
+
+            <div class="details-card">
+
+                <div class="details-header">
+                    <div>
+                        <h3 class="stall-name-large">Ate Maria's Carinderia</h3>
+                        <p class="order-id">@order.Order_ID</p>
+                    </div>
+                    <span class="status-badge status-pending">@order.OrderStatus</span>
+                </div>
+
+                <div class="time-row">
+                    <i class="far fa-clock"></i>
+                    <span>@order.OrderDate</span>
+                    <span class="price-right">₱ @order.OrderTotal</span>
+                </div>
+
+                <div class="toggle-row">
+                    <a href="dashboard-active.html" class="hide-details-link">Hide Details <i class="fas fa-chevron-up"></i></a>
+                </div>
+
+                    <div class="order-items-container">
+                        <p class="items-label">Order Items:</p>
+                        @foreach (var orderItem in Model.orderDetails[order.Order_ID])
+                        {
+                            string orderItemString = $"{orderItem.Quantity}x {orderItem.FoodName}";    
+
+                            <div class="order-item-row">
+                                <span>@orderItemString</span>
+                                <span>₱ @orderItem.Subtotal</span>
+                            </div>
+                        }
+                        <div class="order-item-row">
+                            <span>Service Fee</span>
+                            <span>₱ 5.00</span>
+                        </div>
+                    </div>
+
+                <button class="btn-cancel-order">
+                    <i class="fas fa-times"></i> Cancel Order
+                </button>
+
+            </div>
+        </div>
+        }
+    }
 
     <nav class="bottom-nav">
         <a href="Dashboard" class="nav-item active">

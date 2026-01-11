@@ -49,6 +49,24 @@ namespace PUP_Online_Lagoon_System.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            //  Checks if user is already logged in. Skips login prompt when logged in already
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                //  Check the role from the cookie
+                if (User.IsInRole("customer"))
+                {
+                    return RedirectToAction("Dashboard", "customer");
+                }
+                else if (User.IsInRole("vendor"))
+                {
+                    return RedirectToAction("VendorDashboard", "vendor");
+                }
+                else if (User.IsInRole("admin"))
+                {
+                    return RedirectToAction("AdminDashboard", "admin");
+                }
+            }
+
             return View();
         }
 
