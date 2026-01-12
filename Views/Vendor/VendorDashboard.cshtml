@@ -1,4 +1,11 @@
-﻿
+﻿@model PUP_Online_Lagoon_System.Models.DTO.StallOrdersDTO;
+@{
+    List<string> orderStatusOptions = new List<string>();
+    orderStatusOptions.Add("pending");
+    orderStatusOptions.Add("preparing");
+    orderStatusOptions.Add("ready");
+    orderStatusOptions.Add("completed");
+}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,11 +21,11 @@
     <header class="vendor-header">
         <div class="header-content">
             <div>
-                <h1 class="stall-title">Ate Maria's Carinderia</h1>
-                <p class="vendor-name">Maria</p>
+                <h1 class="stall-title">@Model.stallDetails.StallName</h1>
+                <p class="vendor-name">@Model.vendorFirstName</p>
             </div>
 
-            <a href="vendor-profile.html" class="store-icon-btn">
+            <a asp-controller="Vendor" asp-action="VendorProfile" class="store-icon-btn">
                 <i class="fas fa-user"></i>
             </a>
         </div>
@@ -84,93 +91,51 @@
 
         <h3 class="section-title">Active Orders</h3>
 
-        <div class="order-card">
-            <div class="order-header">
-                <div>
-                    <h4 class="customer-name">Juan Dela Cruz</h4>
-                    <p class="order-id">Order #ORD123456</p>
+        @foreach(var order in Model.ordersList)
+        {
+            <div class="order-card">
+                <div class="order-header">
+                    <div>
+                        <h4 class="customer-name">Juan Dela Cruz</h4>
+                        <p class="order-id">@order.Order_ID</p>
+                    </div>
+                    <span class="badge badge-@order.OrderStatus">@order.OrderStatus</span>
                 </div>
-                <span class="badge badge-pending">Pending</span>
-            </div>
-
-            <div class="order-items">
-                <p>1x Chicken Adobo</p>
-                <p>1x Pork Sisig</p>
-            </div>
-
-            <div class="order-meta">
-                <span>Pickup: 11:30 AM</span>
-                <span class="price">₱140.00</span>
-            </div>
-
-            <div class="status-control">
-                <label>Update Status:</label>
-                <select class="status-select">
-                    <option selected>Pending</option>
-                    <option>Preparing</option>
-                    <option>Ready</option>
-                    <option>Completed</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="order-card">
-            <div class="order-header">
-                <div>
-                    <h4 class="customer-name">Maria Santos</h4>
-                    <p class="order-id">Order #ORD123457</p>
+                <div class="order-items">
+                    @foreach(var orderItem in Model.orderDetails[order.Order_ID])
+                    {
+                        string orderItemString = $"{orderItem.Quantity}x {orderItem.FoodName}";
+                        <p>@orderItemString</p>
+                    }
                 </div>
-                <span class="badge badge-preparing">Preparing</span>
-            </div>
 
-            <div class="order-items">
-                <p>2x Beef Tapa</p>
-            </div>
-
-            <div class="order-meta">
-                <span>Pickup: 12:00 PM</span>
-                <span class="price">₱155.00</span>
-            </div>
-
-            <div class="status-control">
-                <label>Update Status:</label>
-                <select class="status-select">
-                    <option>Pending</option>
-                    <option selected>Preparing</option>
-                    <option>Ready</option>
-                    <option>Completed</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="order-card">
-            <div class="order-header">
-                <div>
-                    <h4 class="customer-name">Pedro Garcia</h4>
-                    <p class="order-id">Order #ORD123458</p>
+                <div class="order-meta">
+                    <span>Pickup: 11:30 AM</span>
+                    <span class="price">₱@order.OrderTotal</span>
                 </div>
-                <span class="badge badge-ready">Ready</span>
-            </div>
 
-            <div class="order-items">
-                <p>1x Lechon Kawali</p>
-            </div>
+                <div class="status-control">
+                    <label>Update Status:</label>
+                    <div class="status-container">
+                        <form asp-controller="QuickVendor" asp-action="ChangeOrderStatus" method="post">
+                            <input type="hidden" name="orderId" value="@order.Order_ID"/>
 
-            <div class="order-meta">
-                <span>Pickup: 12:15 PM</span>
-                <span class="price">₱85.00</span>
+                            <select name="status" class="status-select" onchange="this.form.submit()">
+                                @foreach(string status in orderStatusOptions)
+                                {
+                                    <option value="@status" selected="@(order.OrderStatus == status)">@status</option>
+                                }
+                            </select>
+                        </form>
+                        <form asp-controller="QuickVendor" asp-action="ChangeOrderStatus" method="post" asp-route-orderId="@order.Order_ID" asp-route-status="cancelled">
+                            <button class="btn-cancel-order">
+                                <i class="fas fa-times"></i> Cancel Order
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
-
-            <div class="status-control">
-                <label>Update Status:</label>
-                <select class="status-select">
-                    <option>Pending</option>
-                    <option>Preparing</option>
-                    <option selected>Ready</option>
-                    <option>Completed</option>
-                </select>
-            </div>
-        </div>
+        }
 
     </div>
     <nav class="bottom-nav">
@@ -195,3 +160,7 @@
         </a>
     </nav>
 </body>
+
+<script>
+    function func12(){}
+</script>

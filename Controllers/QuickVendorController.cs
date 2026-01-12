@@ -55,5 +55,20 @@ namespace PUP_Online_Lagoon_System.Controllers
             return RedirectToAction("VendorProfile", "Vendor");
         }
 
+        [HttpPost]
+        public IActionResult ChangeOrderStatus(string orderId, string status)
+        {
+            var order = _dbContext.Orders.FirstOrDefault(o => o.Order_ID == orderId);
+
+            if (order != null)
+            {
+                order.OrderStatus = status;
+
+                _dbContext.SaveChanges();
+            }
+
+
+            return RedirectToAction("VendorDashboard", "Vendor");
+        }
     }
 }

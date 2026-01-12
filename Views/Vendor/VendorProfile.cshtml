@@ -1,4 +1,4 @@
-﻿
+﻿@model PUP_Online_Lagoon_System.Models.DTO.VendorProfileDTO
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +24,7 @@
                 <i class="fas fa-store"></i>
             </div>
             <div class="user-text">
-                <h2 class="user-name">Maria Cruz</h2>
+                <h2 class="user-name">@Model.vendorDetails.FirstName @Model.vendorDetails.LastName</h2>
                 <p class="user-role">Vendor Account</p>
             </div>
         </div>
@@ -36,21 +36,21 @@
         <div class="form-card">
             <div class="input-group">
                 <label>First Name</label>
-                <input type="text" value="Maria" class="input-field">
+                <input type="text" value="@Model.vendorDetails.FirstName" class="input-field">
             </div>
             <div class="input-group">
                 <label>Last Name</label>
-                <input type="text" value="Cruz" class="input-field">
+                <input type="text" value="@Model.vendorDetails.LastName" class="input-field">
             </div>
             <div class="input-group">
                 <label>Contact Number</label>
-                <input type="text" placeholder="0912 345 6789" class="input-field">
+                <input type="text" placeholder="@Model.vendorDetails.ContactNum" class="input-field">
             </div>
             <div class="input-group">
                 <label>Email (Fixed by Admin)</label>
                 <div class="readonly-field">
                     <i class="far fa-envelope"></i>
-                    <span>vendor1@lagoon.com</span>
+                    <span>@Model.userDetails.Email</span>
                 </div>
             </div>
 
@@ -61,24 +61,39 @@
         <div class="form-card">
             <div class="input-group">
                 <label>Stall Name</label>
-                <input type="text" value="Ate Maria's Carinderia" class="input-field">
+                <input type="text" value="@Model.stallDetails.StallName" class="input-field">
             </div>
             <div class="input-group">
                 <label>Stall Description</label>
-                <textarea placeholder="Describe your food stall..." class="input-field textarea-field"></textarea>
+                <textarea placeholder="Describe your food stall..." value="@Model.stallDetails.StallDescription" class="input-field textarea-field"></textarea>
             </div>
 
             <div class="input-group">
                 <label>Stall Status</label>
                 <div class="status-toggle-row">
-                    <label class="switch">
-                        <input type="checkbox" checked>
-                        <span class="slider round"></span>
-                    </label>
-                    <div class="status-labels">
-                        <span class="status-main text-green">Open</span>
-                        <span class="status-sub">Accepting orders</span>
-                    </div>
+                    <form asp-controller="QuickVendor" asp-action="ToggleStallStatus" asp-route-stallId="@Model.stallDetails.Stall_ID" method="post">
+                        @if(Model.stallDetails.Status == true) {
+                            <label class="switch">
+                                <input type="checkbox" checked onchange="this.form.submit()">
+                                <span class="slider round"></span>
+                            </label>
+                            <div class="status-labels">
+                                <span class="status-main text-green">Open</span>
+                                <span class="status-sub">Accepting orders</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <label class="switch">
+                                <input type="checkbox" onchange="this.form.submit()">
+                                <span class="slider round"></span>
+                            </label>
+                            <div class="status-labels">
+                                <span class="status-main text-red">Closed</span>
+                                <span class="status-sub">Not Accepting orders</span>
+                            </div>
+                        }
+                    </form>
                 </div>
             </div>
 
@@ -103,7 +118,7 @@
 
         <h3 class="section-label">Performance</h3>
         <div class="info-card center-text">
-            <h2 class="big-number">127</h2>
+            <h2 class="big-number">@Model.totalOrderCount</h2>
             <p class="number-label">Total Orders</p>
         </div>
 

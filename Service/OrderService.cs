@@ -198,7 +198,7 @@ namespace PUP_Online_Lagoon_System.Service
             CustomerOrdersDTO newDTO = new CustomerOrdersDTO();
 
             string customerId = _httpContextAccessor.HttpContext.User.FindFirst("RoleId")?.Value;
-            List<ItemOrder> ordersList = (isForDashboard == true) ? getCustomerIncompleteOrdersList(customerId) : getCustomerOrdersList(customerId);
+            List<ItemOrder> ordersList = (isForDashboard == true) ? getCustomerIncompleteOrdersList(customerId) : getCustomerPastOrdersList(customerId);
 
             newDTO.customerId = customerId;
             newDTO.ordersList = ordersList;
@@ -221,10 +221,46 @@ namespace PUP_Online_Lagoon_System.Service
             return newDTO;
         }
 
-        public List<ItemOrder> getCustomerOrdersList(string customerId)
+        public StallOrdersDTO getStallOrdersDTO(bool isForDashboard)
+        {
+
+            if (!_httpContextAccessor.HttpContext.User.IsInRole("vendor"))
+            {
+                return new StallOrdersDTO();
+            }
+
+            StallOrdersDTO newDTO = new StallOrdersDTO();
+
+            string vendorId = _httpContextAccessor.HttpContext.User.FindFirst("RoleId")?.Value;
+            string stallId = _vendorService.getStallId(vendorId);
+            List<ItemOrder> ordersList = (isForDashboard == true) ? getStallIncompleteOrdersList(stallId) : getStallPastOrdersList(stallId);
+
+            newDTO.stallDetails = _vendorService.getStallDetails(stallId);
+            newDTO.vendorFirstName = _vendorService.getVendorDetails(vendorId).FirstName;
+            newDTO.ordersList = ordersList;
+
+            if (ordersList.Count > 0)
+            {
+                newDTO.isEmptyOrders = false;
+
+                foreach (var order in ordersList)
+                {
+                    newDTO.orderDetails.TryAdd(order.Order_ID, getOrderDetailsList(order.Order_ID));
+                }
+            }
+
+            else
+            {
+                newDTO.isEmptyOrders = true;
+            }
+
+            return newDTO;
+        }
+
+        public List<ItemOrder> getCustomerPastOrdersList(string customerId)
         {
             return _dbContext.Orders
-                .Where(o => o.Customer_ID== customerId)
+                .Where(o => o.Customer_ID == customerId && (o.OrderStatus == "completed" || o.OrderStatus == "cancelled"))
                 .ToList();
         }
         public List<ItemOrder> getCustomerIncompleteOrdersList(string customerId)
@@ -234,10 +270,17 @@ namespace PUP_Online_Lagoon_System.Service
                 .ToList();
         }
 
-        public List<ItemOrder> getStallOrdersList(string stallId)
+        public List<ItemOrder> getStallPastOrdersList(string stallId)
         {
             return _dbContext.Orders
-                .Where(o => o.Stall_ID== stallId)
+                .Where(o => o.Stall_ID== stallId && (o.OrderStatus == "completed" || o.OrderStatus == "cancelled"))
+                .ToList();
+        }
+
+        public List<ItemOrder> getStallIncompleteOrdersList(string stallId)
+        {
+            return _dbContext.Orders
+                .Where(o => o.Stall_ID == stallId && o.OrderStatus.ToLower() != "cancelled" && o.OrderStatus.ToLower() != "completed")
                 .ToList();
         }
 

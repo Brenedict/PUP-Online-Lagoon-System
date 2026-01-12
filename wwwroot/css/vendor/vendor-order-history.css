@@ -134,6 +134,47 @@ body {
     margin-bottom: 3px;
 }
 
+/* Empty orders history pop-up */
+.empty-history-card {
+    background-color: white;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+    padding: 60px 20px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-gray);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.icon-box {
+    margin-bottom: 15px;
+}
+
+.empty-text {
+    color: var(--text-gray);
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.btn-start-ordering {
+    background-color: var(--primary-red);
+    color: white;
+    text-decoration: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.btn-start-ordering:hover {
+    background-color: #600000;
+}
+
 /* --- Bottom Nav (3 Items) --- */
 .bottom-nav {
     position: fixed;

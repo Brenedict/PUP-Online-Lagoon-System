@@ -1,4 +1,4 @@
-﻿
+﻿@model PUP_Online_Lagoon_System.Models.DTO.CustomerOrdersDTO;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,28 +7,65 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="~/css/customer/order-history.css" asp-append-version="true">
+    @* <link rel="stylesheet" href="~/css/customer/order-history.css" asp-append-version="true"> *@
+    <link rel="stylesheet" href="~/css/vendor//vendor-order-history.css" asp-append-version="true">
 </head>
 <body>
 
     <header class="history-header">
-        <a href="dashboard.html" class="back-button">
-            <i class="fas fa-arrow-left"></i>
-        </a>
-        <h1 class="header-title">Order History</h1>
+        <div class="header-left">
+            <a asp-controller="Customer" asp-action="Dashboard" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 class="header-title">Order History</h1>
+        </div>
     </header>
 
     <div class="main-content">
-        <div class="empty-history-card">
-            <div class="icon-box">
-                <i class="far fa-clipboard" style="font-size: 40px; color: #d1d5db;"></i>
-            </div>
-            <p class="empty-text">No past orders yet</p>
+        @if(Model.ordersList.Count() >= 0)
+        {
+            <div class="empty-history-card">
+                <div class="icon-box">
+                    <i class="far fa-clipboard" style="font-size: 40px; color: #d1d5db;"></i>
+                </div>
+                <p class="empty-text">No past orders yet</p>
 
-            <a href="stalls.html" class="btn-start-ordering">
-                Start Ordering
-            </a>
-        </div>
+                <a href="stalls.html" class="btn-start-ordering">
+                    Start Ordering
+                </a>
+            </div>
+        } 
+        else
+        {
+            @foreach (var order in Model.ordersList)
+            {
+                <div class="history-card">
+                    <div class="card-top">
+                        <div>
+                            <p class="order-id">@order.Order_ID</p>
+                        </div>
+                        <span class="badge badge-@order.OrderStatus">@order.OrderStatus</span>
+                    </div>
+
+                    <div class="card-meta">
+                        <div class="time"><i class="far fa-clock"></i> @order.OrderDate</div>
+                        <div class="total-price">₱@order.OrderTotal</div>
+                    </div>
+
+                    <div class="items-section">
+                        <p class="items-label">Items:</p>
+                        @foreach (var orderItem in Model.orderDetails[order.Order_ID])
+                        {
+                            string orderItemString = $"{orderItem.Quantity}x {orderItem.FoodName}";
+                            <div class="item-row">
+                                <span>@orderItemString</span>
+                                <span>₱@orderItem.OriginalPrice</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
     </div>
 
     <nav class="bottom-nav">

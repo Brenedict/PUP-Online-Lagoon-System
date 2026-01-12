@@ -67,7 +67,9 @@ namespace PUP_Online_Lagoon_System.Controllers
         [HttpGet]
         public IActionResult OrderHistory()
         {
-            return View();
+            bool isForDashboard = false;
+            var customerOrdersDTO = _orderService.getCustomerOrdersDTO(isForDashboard);
+            return View(customerOrdersDTO);
         }
 
         [HttpGet]

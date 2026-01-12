@@ -37,11 +37,45 @@ namespace PUP_Online_Lagoon_System.Service
             return newDTO;
         }
 
+        public VendorProfileDTO GetVendorProfileDTO()
+        {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value;
+            string vendorId = _httpContextAccessor.HttpContext.User.FindFirst("RoleId")?.Value;
+
+            var userDetails = getUserDetails(userId);
+            var vendorDetails = getVendorDetails(vendorId);
+            var stallDetails = getStallDetails(vendorDetails.Stall_ID);
+
+            int totalOrderCount = getTotalOrderCount(vendorDetails.Stall_ID);
+
+            VendorProfileDTO newDTO = new VendorProfileDTO
+            {
+                userDetails = userDetails,
+                stallDetails = stallDetails,
+                vendorDetails = vendorDetails,
+                totalOrderCount = totalOrderCount
+            };
+
+            return newDTO;
+        }
+
         public List<FoodItem> getAllFoodItems(string stallId)
         {
             return _dbContext.FoodItems
                 .Where(s => s.Stall_ID == stallId)
                 .ToList();
+        }
+
+        public int getTotalOrderCount(string stallId)
+        {
+            return _dbContext.Orders
+                .Where(o => o.Stall_ID == stallId)
+                .ToList().Count();
+        }
+
+        public User getUserDetails(string userId)
+        {
+            return _dbContext.Users.FirstOrDefault(u => u.User_ID == userId);
         }
 
         public Vendor getVendorDetails(string vendorId)

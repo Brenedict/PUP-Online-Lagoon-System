@@ -21,7 +21,7 @@ builder.Services.AddHttpContextAccessor();
 //  Project Database Connection
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlite("Data Source=Lagoon.db");
+    options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=LagoonDB;Integrated Security=True;TrustServerCertificate=True");
 });
 
 //  Project Cookies Config

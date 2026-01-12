@@ -29,17 +29,22 @@ namespace PUP_Online_Lagoon_System.Controllers
         private readonly ApplicationDbContext _dbContext;
 
         private readonly VendorService _service;
-        public VendorController(ILogger<AccountController> logger, ApplicationDbContext dbContext, VendorService service)
+
+        private readonly OrderService _orderService;
+        public VendorController(ILogger<AccountController> logger, ApplicationDbContext dbContext, VendorService service, OrderService orderService)
         {
             _logger = logger;
             _dbContext = dbContext;
             _service = service;
+            _orderService = orderService;
         }
 
         [HttpGet]
         public IActionResult VendorDashboard()
         {
-            return View();
+            bool isForDashboard = true;
+            var stallOrdersDTO = _orderService.getStallOrdersDTO(isForDashboard);
+            return View(stallOrdersDTO);
         }
 
         [HttpGet]
@@ -52,13 +57,16 @@ namespace PUP_Online_Lagoon_System.Controllers
         [HttpGet]
         public IActionResult VendorOrderHistory()
         {
-            return View();
+            bool isForDashboard = false;
+            var stallOrdersDTO = _orderService.getStallOrdersDTO(isForDashboard);
+            return View(stallOrdersDTO);
         }
 
         [HttpGet]
         public IActionResult VendorProfile()
         {
-            return View();
+            var vendorProfileDTO = _service.GetVendorProfileDTO();
+            return View(vendorProfileDTO);
         }
 
         [HttpPost]

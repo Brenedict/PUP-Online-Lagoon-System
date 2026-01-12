@@ -224,6 +224,29 @@ body {
     color: var(--primary-red);
 }
 
+/* Cancel Button */
+.btn-cancel-order {
+    width: 150px;
+    background-color: #dc2626; /* Bright Red */
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1em;
+}
+
+.btn-cancel-order:hover {
+    background-color: #b91c1c;
+}
+
+
 /* Status Control */
 .status-control {
     display: flex;
