@@ -22,7 +22,7 @@
     </header>
 
     <div class="main-content">
-        @if(Model.ordersList.Count() >= 0)
+        @if(Model.ordersList.Count() <= 0)
         {
             <div class="empty-history-card">
                 <div class="icon-box">
@@ -42,13 +42,14 @@
                 <div class="history-card">
                     <div class="card-top">
                         <div>
-                            <p class="order-id">@order.Order_ID</p>
+                            <h3 class="customer-name">@order.Order_ID</h3>
+                            <p class="order-id">@order.OrderDate</p>
                         </div>
                         <span class="badge badge-@order.OrderStatus">@order.OrderStatus</span>
                     </div>
 
                     <div class="card-meta">
-                        <div class="time"><i class="far fa-clock"></i> @order.OrderDate</div>
+                        <div class="time"><i class="far fa-clock"></i> Pickup: @order.EstPickupTime</div>
                         <div class="total-price">₱@order.OrderTotal</div>
                     </div>
 

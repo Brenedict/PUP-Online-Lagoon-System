@@ -50,31 +50,29 @@
     }
     else
     {
-        foreach(var order in Model.ordersList)
-        {
-            
         <div class="main-content">
             <h2 class="section-title">Active Orders</h2>
+            @foreach(var order in Model.ordersList)
+            {
+                <div class="details-card">
 
-            <div class="details-card">
-
-                <div class="details-header">
-                    <div>
-                        <h3 class="stall-name-large">Ate Maria's Carinderia</h3>
-                        <p class="order-id">@order.Order_ID</p>
+                    <div class="details-header">
+                        <div>
+                            <h3 class="stall-name-large">Ate Maria's Carinderia</h3>
+                            <p class="order-id">@order.Order_ID</p>
+                        </div>
+                        <span class="status-badge status-@order.OrderStatus">@order.OrderStatus</span>
                     </div>
-                    <span class="status-badge status-@order.OrderStatus">@order.OrderStatus</span>
-                </div>
 
-                <div class="time-row">
-                    <i class="far fa-clock"></i>
-                    <span>@order.OrderDate</span>
-                    <span class="price-right">₱ @order.OrderTotal</span>
-                </div>
+                    <div class="time-row">
+                        <i class="far fa-clock"></i>
+                        <span>Pickup: @order.EstPickupTime</span>
+                        <span class="price-right">₱ @order.OrderTotal</span>
+                    </div>
 
-                <div class="toggle-row">
-                    <a href="dashboard-active.html" class="hide-details-link">Hide Details <i class="fas fa-chevron-up"></i></a>
-                </div>
+                    <div class="toggle-row">
+                        <a href="dashboard-active.html" class="hide-details-link">Hide Details <i class="fas fa-chevron-up"></i></a>
+                    </div>
 
                     <div class="order-items-container">
                         <p class="items-label">Order Items:</p>
@@ -93,13 +91,14 @@
                         </div>
                     </div>
 
-                <button class="btn-cancel-order">
-                    <i class="fas fa-times"></i> Cancel Order
-                </button>
-
-            </div>
+                    <form asp-controller="Customer" asp-action="CancelOrder" method="post" asp-route-orderId="@order.Order_ID" asp-route-status="cancelled">
+                        <button class="btn-cancel-order">
+                            <i class="fas fa-times"></i> Cancel Order
+                        </button>
+                    </form>
+                </div>
+            }
         </div>
-        }
     }
 
     <nav class="bottom-nav">

@@ -13,5 +13,7 @@ namespace PUP_Online_Lagoon_System.Models.DTO
         public FoodStall stallDetails { get; set; }
 
         public int totalOrderCount { get; set; }
+
+        public string passwordChangeStatus { get; set; }
     }
 }

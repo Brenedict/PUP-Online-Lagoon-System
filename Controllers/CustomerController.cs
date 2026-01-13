@@ -53,7 +53,7 @@ namespace PUP_Online_Lagoon_System.Controllers
         public IActionResult CheckoutCart(string stallId)
         {
             _orderService.checkoutCart(stallId);
-            return RedirectToAction("Dashboard", "Customer");
+            return RedirectToAction("OrderSuccess", "Customer");
         }
 
         [HttpGet]
@@ -112,6 +112,14 @@ namespace PUP_Online_Lagoon_System.Controllers
             _orderService.deleteCartItem(foodId, customerId);
 
             return RedirectToAction("Cart", new { stallId = stallId });
+        }
+
+        [HttpPost]
+        public IActionResult CancelOrder(string orderId)
+        {
+            _orderService.cancelOrder(orderId);
+
+            return RedirectToAction("Dashboard", "Customer");
         }
     }
 }

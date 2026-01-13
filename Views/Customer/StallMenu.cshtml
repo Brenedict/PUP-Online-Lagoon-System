@@ -32,14 +32,12 @@
             <p class="stall-prep-time">Prep time: @Model.stallDetails.PrepTime mins</p>
         </div>
     </div>
-    @if (@PUP_Online_Lagoon_System.Models.DTO.CustomerStallCheckoutDTO.staticCart.TryGetValue(Model.customerId, out List<@PUP_Online_Lagoon_System.Models.DTO.CartItem> cart))
-    {
-        foreach(var item in cart)
+    <div class="cart-count-container">
+        @if (@PUP_Online_Lagoon_System.Models.DTO.CustomerStallCheckoutDTO.staticCart.TryGetValue(Model.customerId, out List<@PUP_Online_Lagoon_System.Models.DTO.CartItem> cart))
         {
-            <h1>@item.FoodName: @item.Quantity</h1>
-            
+            <h1>Your cart has: @cart.Count items</h1>
         }
-    }
+    </div>
     <div class="menu-container">
         @foreach(var foodItem in Model.foodItems)
         {

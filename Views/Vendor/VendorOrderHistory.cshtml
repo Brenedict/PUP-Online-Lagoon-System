@@ -29,14 +29,15 @@
             <div class="history-card">
                 <div class="card-top">
                     <div>
-                        <h3 class="customer-name">Ana Reyes</h3>
+                        <h3 class="customer-name">@order.RecipientName</h3>
                         <p class="order-id">@order.Order_ID</p>
+                        <p class="order-id">@order.OrderDate</p>
                     </div>
                     <span class="badge badge-@order.OrderStatus">@order.OrderStatus</span>
                 </div>
 
                 <div class="card-meta">
-                    <div class="time"><i class="far fa-clock"></i> @order.OrderDate</div>
+                    <div class="time"><i class="far fa-clock"></i> Pickup: @order.EstPickupTime</div>
                     <div class="total-price">₱@order.OrderTotal</div>
                 </div>
 

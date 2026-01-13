@@ -63,9 +63,9 @@ namespace PUP_Online_Lagoon_System.Controllers
         }
 
         [HttpGet]
-        public IActionResult VendorProfile()
+        public IActionResult VendorProfile(string? passwordChangeStatus)
         {
-            var vendorProfileDTO = _service.GetVendorProfileDTO();
+            var vendorProfileDTO = _service.GetVendorProfileDTO(passwordChangeStatus);
             return View(vendorProfileDTO);
         }
 
@@ -92,6 +92,29 @@ namespace PUP_Online_Lagoon_System.Controllers
         {
             _service.saveEditFoodItem(updatedItem);
             return RedirectToAction("VendorMenu");
+        }
+
+        [HttpPost]
+        public IActionResult SaveProfile(string vendorId, string firstName, string lastName, string contactNum)
+        {
+            _service.updateVendorPersonalInfo(vendorId, firstName, lastName, contactNum);
+            return RedirectToAction("VendorProfile", "Vendor");
+        }
+
+        [HttpPost]
+        public IActionResult SaveStallSettings(string stallId, string stallName, string stallDescription)
+        {
+            _service.updateStallDetails(stallId, stallName, stallDescription);
+            return RedirectToAction("VendorProfile", "Vendor");
+        }
+
+        [HttpPost]
+        public IActionResult SaveUpdatePassword(string vendorId, string currPassword, string newPassword)
+        {
+            _service.updateVendorPassword(vendorId, currPassword, newPassword, out string passwordChangeStatus);
+
+            return RedirectToAction("VendorProfile", "Vendor", new { passwordChangeStatus = passwordChangeStatus });
+            
         }
     }
 }

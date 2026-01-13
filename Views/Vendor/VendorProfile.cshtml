@@ -13,7 +13,7 @@
 
     <header class="profile-header">
         <div class="header-top">
-            <a href="vendor-dashboard.html" class="back-button">
+            <a asp-controller="Vendor" asp-action="VendorDashboard" class="back-button">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <h1 class="header-title">Vendor Settings</h1>
@@ -33,46 +33,58 @@
     <div class="main-content">
 
         <h3 class="section-label">Personal Information</h3>
-        <div class="form-card">
-            <div class="input-group">
-                <label>First Name</label>
-                <input type="text" value="@Model.vendorDetails.FirstName" class="input-field">
-            </div>
-            <div class="input-group">
-                <label>Last Name</label>
-                <input type="text" value="@Model.vendorDetails.LastName" class="input-field">
-            </div>
-            <div class="input-group">
-                <label>Contact Number</label>
-                <input type="text" placeholder="@Model.vendorDetails.ContactNum" class="input-field">
-            </div>
-            <div class="input-group">
-                <label>Email (Fixed by Admin)</label>
-                <div class="readonly-field">
-                    <i class="far fa-envelope"></i>
-                    <span>@Model.userDetails.Email</span>
+        <form asp-controller="Vendor" asp-action="SaveProfile" method="post">
+            <input name="vendorId" type="text" hidden value="@Model.vendorDetails.Vendor_ID">
+            <div class="form-card">
+                <div class="input-group">
+                    <label>First Name</label>
+                    <input name="firstName" type="text" value="@Model.vendorDetails.FirstName" class="input-field">
                 </div>
+                <div class="input-group">
+                    <label>Last Name</label>
+                    <input name="lastName" type="text" value="@Model.vendorDetails.LastName" class="input-field">
+                </div>
+                <div class="input-group">
+                    <label>Contact Number</label>
+                    <input name="contactNum" type="text" value="@Model.vendorDetails.ContactNum" class="input-field">
+                </div>
+                <div class="input-group email-input-group">
+                    <label>Email (Fixed by Admin)</label>
+                    <div class="readonly-field">
+                        <i class="far fa-envelope"></i>
+                        <span>@Model.userDetails.Email</span>
+                    </div>
+                </div>
+
+                <button class="btn-save">Save Profile</button>
             </div>
+        </form>
 
-            <button class="btn-save">Save Profile</button>
-        </div>
+        <h3 class="section-label">Stall Details</h3>
+        <form asp-controller="Vendor" asp-action="SaveStallSettings" method="post">
+            <input name="stallId" type="text" hidden value="@Model.stallDetails.Stall_ID">
+            <div class="form-card">
+                <div class="input-group">
+                    <label>Stall Name</label>
+                    <input name="stallName" type="text" value="@Model.stallDetails.StallName" class="input-field">
+                </div>
+                <div class="input-group">
+                    <label>Stall Description</label>
+                    <textarea name="stallDescription" value="@Model.stallDetails.StallDescription" class="input-field textarea-field">@Model.stallDetails.StallDescription
+                    </textarea>
+                </div>
 
-        <h3 class="section-label">Stall Settings</h3>
+                <button class="btn-save">Save Stall Settings</button>
+            </div>
+        </form>
+
+        <h3 class="section-label">Stall Status</h3>
         <div class="form-card">
-            <div class="input-group">
-                <label>Stall Name</label>
-                <input type="text" value="@Model.stallDetails.StallName" class="input-field">
-            </div>
-            <div class="input-group">
-                <label>Stall Description</label>
-                <textarea placeholder="Describe your food stall..." value="@Model.stallDetails.StallDescription" class="input-field textarea-field"></textarea>
-            </div>
-
-            <div class="input-group">
-                <label>Stall Status</label>
+            <div class="input-group stall-status-group">
                 <div class="status-toggle-row">
                     <form asp-controller="QuickVendor" asp-action="ToggleStallStatus" asp-route-stallId="@Model.stallDetails.Stall_ID" method="post">
-                        @if(Model.stallDetails.Status == true) {
+                        @if (Model.stallDetails.Status == true)
+                        {
                             <label class="switch">
                                 <input type="checkbox" checked onchange="this.form.submit()">
                                 <span class="slider round"></span>
@@ -96,24 +108,45 @@
                     </form>
                 </div>
             </div>
-
-            <button class="btn-save">Save Stall Settings</button>
         </div>
 
         <h3 class="section-label">Change Password</h3>
         <div class="form-card">
-            <label class="sub-label">Current Password</label>
-            <input type="password" placeholder="Enter current password" class="input-field mb-4">
+            @if (Model.passwordChangeStatus == "incorrect")
+            {
+                <div class="alert alert-danger" role="alert" style="font-size: 0.8em; padding: 0.5em 1em;">
+                      !!! Incorrect password
+                </div>
+            }
+            else if (Model.passwordChangeStatus == "repeated")
+            {
+                <div class="alert alert-danger" role="alert" style="font-size: 0.8em; padding: 0.5em 1em;">
+                    !!! Your new password can't be the same as your old password
+                </div>
+            }
+            else if (Model.passwordChangeStatus == "success")
+            {
+                <div class="alert alert-success" role="alert" style="font-size: 0.8em; padding: 0.5em 1em;">
+                    Password changed successfully
+                </div>
+            }
 
-            <label class="sub-label">New Password</label>
-            <input type="password" placeholder="At least 6 characters" class="input-field mb-4">
+            <form id="vendor-form" asp-controller="Vendor" asp-action="SaveUpdatePassword" method="post">
+                <input name="vendorId" type="text" hidden value="@Model.vendorDetails.Vendor_ID">
 
-            <label class="sub-label">Confirm New Password</label>
-            <input type="password" placeholder="Re-enter new password" class="input-field mb-4">
+                <label class="sub-label">Current Password</label>
+                <input name="currPassword" type="password" required id="input-current-password" placeholder="Enter current password" class="input-field mb-4">
 
-            <button class="btn-save">
-                <i class="fas fa-lock"></i> Update Password
-            </button>
+                <label class="sub-label">New Password</label>
+                <input name="newPassword" type="password" required id="input-new-password" placeholder="At least 6 characters" class="input-field mb-4">
+
+                <label class="sub-label">Confirm New Password</label>
+                <input type="password" required id="input-confirm-password" placeholder="Re-enter new password" class="input-field mb-4">
+
+                <button type="button" onclick="checkPasswordConfirm()" class="btn-save btn-save-password btn-disable">
+                    <i class="fas fa-lock"></i> Update Password
+                </button>
+            </form>
         </div>
 
         <h3 class="section-label">Performance</h3>
@@ -153,3 +186,20 @@
     </nav>
 
 </body>
+
+<script>
+    function checkPasswordConfirm() {
+        const currPasswordInputElem = document.getElementById("input-current-password");
+        const newPasswordInputElem = document.getElementById("input-new-password");
+        const confPasswordInputElem = document.getElementById("input-confirm-password");
+        const form = document.getElementById("vendor-form");
+
+        currPassLength = currPasswordInputElem.value.length;
+        newPassLength = newPasswordInputElem.value.length;
+        confPassLength = confPasswordInputElem.value.length;
+
+        if(newPasswordInputElem.value == confPasswordInputElem.value && newPassLength >= 6 && confPassLength >= 6 && currPassLength > 3) {
+            form.submit();
+        }
+    }
+</script>

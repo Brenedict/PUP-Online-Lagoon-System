@@ -22,6 +22,9 @@ namespace PUP_Online_Lagoon_System.Models.Orders
         [Required]
         public string EstPickupTime { get; set; } = "";
 
+        [Required]
+        public string RecipientName{ get; set; } = "";
+
         //  Foreign Keys
         public string? Customer_ID { get; set; }
 

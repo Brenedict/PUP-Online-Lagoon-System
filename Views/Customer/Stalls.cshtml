@@ -13,7 +13,7 @@
 
     <header class="stalls-header">
         <div class="header-top">
-            <a href="dashboard.html" class="back-icon">
+            <a asp-controller="Customer" asp-action="Dashboard" class="back-icon">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <h1 class="header-title">Food Stalls</h1>
@@ -41,7 +41,7 @@
                         <div class="stall-info">
                             <h3 class="stall-name">@stall.StallName</h3>
                             <span class="status-badge status-open">Open</span>
-                            <span class="time-text"><i class="far fa-clock"></i>@stall.PrepTime</span>
+                            <span class="time-text"><i class="far fa-clock"></i> @stall.PrepTime minutes</span>
                         </div>
                         <div class="arrow-icon">
                             <i class="fas fa-arrow-right"></i>

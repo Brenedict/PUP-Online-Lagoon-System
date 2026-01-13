@@ -14,7 +14,7 @@ namespace PUP_Online_Lagoon_System.Models.DTO
 
         public string StallDescription { get; set; } = "Stall Default Description";
 
-        public string PrepTime { get; set; } = "10 - 15";
+        public int PrepTime { get; set; } = 5;
 
         public bool Status { get; set; } = false;
 

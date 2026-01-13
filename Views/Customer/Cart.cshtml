@@ -1,4 +1,9 @@
 ﻿@model PUP_Online_Lagoon_System.Models.DTO.CustomerStallCheckoutDTO;
+@{
+    double subTotal = 0.0;
+    int cartItemsCount = 0;
+}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,8 +24,12 @@
     <div class="cart-container">
         @if (@PUP_Online_Lagoon_System.Models.DTO.CustomerStallCheckoutDTO.staticCart.TryGetValue(Model.customerId, out List<@PUP_Online_Lagoon_System.Models.DTO.CartItem> cart))
         {
+            cartItemsCount = cart.Count();
+
             foreach (var cartItem in cart)
             {
+                subTotal += cartItem.Price;
+
                 <div class="cart-item">
                     <div class="item-img-box"></div> <div class="item-details">
                         <h3 class="item-name">@cartItem.FoodName</h3>
@@ -52,25 +61,27 @@
         {
             <h1>No item here yet...</h1>
         }
+    
+    @if(cartItemsCount > 0) {
+        <div class="cart-footer">
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span>₱ @subTotal</span>
+            </div>
+            <div class="summary-row">
+                <span>Service Fee</span>
+                <span>₱5.00</span>
+            </div>
+            <div class="summary-row total-row">
+                <span>Total</span>
+                <span class="total-amount">₱ @(subTotal + 5)</span>
+            </div>
 
-    <div class="cart-footer">
-        <div class="summary-row">
-            <span>Subtotal</span>
-            <span>₱</span>
+            <a asp-controller="Customer" asp-action="Checkout" asp-route-stallId="@Model.stallDetails.Stall_ID" class="btn-checkout" style="text-decoration: none; display: block; text-align: center;">
+                Proceed to Checkout
+            </a>
         </div>
-        <div class="summary-row">
-            <span>Service Fee</span>
-            <span>₱5.00</span>
-        </div>
-        <div class="summary-row total-row">
-            <span>Total</span>
-            <span class="total-amount">₱</span>
-        </div>
-
-        <a asp-controller="Customer" asp-action="Checkout" asp-route-stallId="@Model.stallDetails.Stall_ID" class="btn-checkout" style="text-decoration: none; display: block; text-align: center;">
-            Proceed to Checkout
-        </a>
-    </div>
+    } 
 
 </body>
 

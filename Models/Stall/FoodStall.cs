@@ -16,7 +16,7 @@ namespace PUP_Online_Lagoon_System.Models.Stall
         public string StallDescription { get; set; }
 
         [Required]
-        public string PrepTime{ get; set; }
+        public int PrepTime{ get; set; }
 
         [Required]
         public bool Status { get; set; }

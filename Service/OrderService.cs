@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PUP_Online_Lagoon_System.Models;
 using PUP_Online_Lagoon_System.Models.Account;
 using PUP_Online_Lagoon_System.Models.DTO;
@@ -81,6 +82,7 @@ namespace PUP_Online_Lagoon_System.Service
                     Food_ID = foodId,
                     Quantity = quantity,
                     Price = price * quantity,
+                    originalPrice = price,
                     FoodName = foodItemDetails.FoodName,
                     FoodDescription = foodItemDetails.FoodDescription,
                     totalQuantityRemain = foodItemDetails.Quantity
@@ -128,7 +130,8 @@ namespace PUP_Online_Lagoon_System.Service
                 return;
             }
 
-            double orderTotal = 0.00;
+            //  Initial Service Fee
+            double orderTotal = 5.00;
 
             foreach(var item in CustomerStallCheckoutDTO.staticCart[dto.customerId])
             {
@@ -137,6 +140,8 @@ namespace PUP_Online_Lagoon_System.Service
 
             string orderId = GenerateCustomOrderId();
             string customerId = dto.customerId;
+            string customerName = _customerService.GetCustomerName(customerId);
+            int stallPrepTime = _vendorService.getStallDetails(stallId).PrepTime;
 
             var newOrder = new ItemOrder
             {
@@ -146,7 +151,8 @@ namespace PUP_Online_Lagoon_System.Service
                 OrderDate = DateTime.Now.ToString(),
                 OrderStatus = "pending",
                 OrderTotal = orderTotal,
-                EstPickupTime = "10mins" // Fix this is static
+                EstPickupTime = TimeOnly.FromDateTime(DateTime.Now.AddMinutes(stallPrepTime)).ToString(),
+                RecipientName = customerName
             };
 
             _dbContext.Orders.Add(newOrder);
@@ -257,6 +263,17 @@ namespace PUP_Online_Lagoon_System.Service
             return newDTO;
         }
 
+        public void cancelOrder(string orderId)
+        {
+            var order = _dbContext.Orders.FirstOrDefault(o => o.Order_ID == orderId);
+
+            if (order != null)
+            {
+                order.OrderStatus = "cancelled";
+
+                _dbContext.SaveChanges();
+            }
+        }
         public List<ItemOrder> getCustomerPastOrdersList(string customerId)
         {
             return _dbContext.Orders

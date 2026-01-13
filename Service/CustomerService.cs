@@ -45,6 +45,13 @@ namespace PUP_Online_Lagoon_System.Service
             return _dbContext.FoodStalls.ToList();
         }
 
+        public string GetCustomerName(string customerId)
+        {
+            var existingCustomer = _dbContext.Customers.FirstOrDefault(c => c.Customer_ID == customerId);
+
+            return $"{existingCustomer.FirstName} {existingCustomer.LastName}";
+        }
+
     }
         
 

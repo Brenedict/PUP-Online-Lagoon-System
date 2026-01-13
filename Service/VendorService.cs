@@ -37,7 +37,7 @@ namespace PUP_Online_Lagoon_System.Service
             return newDTO;
         }
 
-        public VendorProfileDTO GetVendorProfileDTO()
+        public VendorProfileDTO GetVendorProfileDTO(string? passwordChangeStatus)
         {
             string userId = _httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value;
             string vendorId = _httpContextAccessor.HttpContext.User.FindFirst("RoleId")?.Value;
@@ -53,7 +53,8 @@ namespace PUP_Online_Lagoon_System.Service
                 userDetails = userDetails,
                 stallDetails = stallDetails,
                 vendorDetails = vendorDetails,
-                totalOrderCount = totalOrderCount
+                totalOrderCount = totalOrderCount,
+                passwordChangeStatus = passwordChangeStatus ?? "none"
             };
 
             return newDTO;
@@ -127,8 +128,79 @@ namespace PUP_Online_Lagoon_System.Service
                 existingItem.Price = updatedItem.Price;
                 existingItem.Quantity = updatedItem.Quantity;
 
+                _dbContext.Update(existingItem);
                 _dbContext.SaveChanges();
             }
+        }
+
+        public void updateVendorPersonalInfo(string vendorId, string firstName, string lastName, string contactNum)
+        {
+            var vendorDetails = getVendorDetails(vendorId);
+
+            var existingVendorRecord = _dbContext.Vendors.FirstOrDefault(v => v.Vendor_ID == vendorId);
+
+            if(existingVendorRecord != null)
+            {
+                existingVendorRecord.FirstName = firstName;
+                existingVendorRecord.LastName = lastName;
+                existingVendorRecord.ContactNum = contactNum;
+
+                _dbContext.Update(existingVendorRecord);
+                _dbContext.SaveChanges();
+            }
+        }
+
+        public void updateStallDetails(string stallId, string stallName, string stallDescription)
+        {
+            var stallDetails = getStallDetails(stallId);
+
+            var existingStallRecord = _dbContext.FoodStalls.FirstOrDefault(s => s.Stall_ID == stallId);
+
+            if (existingStallRecord != null)
+            {
+                existingStallRecord.StallName = stallName;
+                existingStallRecord.StallDescription = stallDescription;
+
+                _dbContext.Update(existingStallRecord);
+                _dbContext.SaveChanges();
+            }
+        }
+
+        public bool updateVendorPassword(string vendorId, string currPassword, string newPassword, out string passwordChangeStatus)
+        {
+            var userId = _httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value; ;
+
+            var existingUserRecord = _dbContext.Users.FirstOrDefault(u => u.User_ID == userId);
+
+            Console.WriteLine($"Entered Curr: {currPassword}\nNew: {newPassword}");
+
+            if(existingUserRecord == null)
+            {
+                passwordChangeStatus = "none";
+                return false;
+            }
+
+            if (existingUserRecord.Password != currPassword)
+            {
+                passwordChangeStatus = "incorrect";
+                return false;
+            }
+
+            if (existingUserRecord.Password == newPassword)
+            {
+                passwordChangeStatus = "repeated";
+                return false;
+            }
+
+
+            existingUserRecord.Password = newPassword;
+
+            _dbContext.Update(existingUserRecord);
+            _dbContext.SaveChanges();
+
+            passwordChangeStatus = "success";
+            return true;
+
         }
 
         public string GenerateCustomFoodId()
