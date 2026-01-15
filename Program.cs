@@ -14,6 +14,7 @@ builder.Services.AddScoped<IGenerateCustomId, AuthService>();
 builder.Services.AddScoped<CustomerService>();
 builder.Services.AddScoped<VendorService>();
 builder.Services.AddScoped<OrderService>();
+builder.Services.AddScoped<AdminService>();
 
 //  Cookie claims access
 builder.Services.AddHttpContextAccessor();

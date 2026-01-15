@@ -40,9 +40,52 @@ namespace PUP_Online_Lagoon_System.Service
             return newDTO;
         }
 
+        public CustomerProfileDTO GetCustomerProfileDTO(string? passwordChangeStatus)
+        {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst("UserId")?.Value;
+            string customerId = _httpContextAccessor.HttpContext.User.FindFirst("RoleId")?.Value;
+
+            var userDetails = getUserDetails(userId);
+            var customerDetails = getCustomerDetails(customerId);
+
+            CustomerProfileDTO newDTO = new CustomerProfileDTO
+            {
+                userDetails = userDetails,
+                customerDetails = customerDetails,
+                passwordChangeStatus = passwordChangeStatus ?? "none"
+            };
+
+            return newDTO;
+        }
+
+        public void updateCustomerPersonalInfo(string customerId, string firstName, string lastName, string contactNum)
+        {
+            var existingCustomerRecord = _dbContext.Customers.FirstOrDefault(c => c.Customer_ID == customerId);
+
+            if (existingCustomerRecord != null)
+            {
+                existingCustomerRecord.FirstName = firstName;
+                existingCustomerRecord.LastName = lastName;
+                existingCustomerRecord.ContactNum = contactNum;
+
+                _dbContext.Update(existingCustomerRecord);
+                _dbContext.SaveChanges();
+            }
+        }
+
         public List<FoodStall> GetOpenFoodStalls()
         {
             return _dbContext.FoodStalls.ToList();
+        }
+
+        public User getUserDetails(string userId)
+        {
+            return _dbContext.Users.FirstOrDefault(u => u.User_ID == userId);
+        }
+
+        public Customer getCustomerDetails(string customerId)
+        {
+            return _dbContext.Customers.FirstOrDefault(c => c.Customer_ID == customerId);
         }
 
         public string GetCustomerName(string customerId)

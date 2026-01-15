@@ -207,15 +207,21 @@ namespace PUP_Online_Lagoon_System.Service
             List<ItemOrder> ordersList = (isForDashboard == true) ? getCustomerIncompleteOrdersList(customerId) : getCustomerPastOrdersList(customerId);
 
             newDTO.customerId = customerId;
+            newDTO.customerName = _customerService.GetCustomerName(customerId);
             newDTO.ordersList = ordersList;
 
-            if (ordersList .Count > 0)
+            if (ordersList.Count > 0)
             {
                 newDTO.isEmptyOrders = false;
 
                 foreach (var order in ordersList)
                 {
                     newDTO.orderDetails.TryAdd(order.Order_ID, getOrderDetailsList(order.Order_ID));
+
+                    if(!newDTO.orderStallNames.TryGetValue(order.Stall_ID, out string stallName))
+                    {
+                        newDTO.orderStallNames.Add(order.Stall_ID, _vendorService.getStallDetails(order.Stall_ID).StallName);
+                    }
                 }
             } 
 

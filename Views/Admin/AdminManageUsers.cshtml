@@ -1,4 +1,5 @@
-﻿
+﻿@model PUP_Online_Lagoon_System.Models.DTO.AdminUsersTabDTO;
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -82,12 +83,12 @@
                         <div class="spacer-box"></div>
                     </div>
 
-                    <p class="result-count">Showing 8 of 8 users</p>
+                    <p class="result-count">Showing @(Model.customerList.Count()) of @(Model.customerList.Count()) users</p>
 
                     <table class="user-table">
                         <thead>
                             <tr>
-                                th>USER ID</th>
+                                <th>USER ID</th>
                                 <th>NAME</th>
                                 <th>EMAIL</th>
                                 <th>ORDERS</th>
@@ -95,62 +96,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-gray">#1</td>
-                                <td class="font-bold">Juan Dela Cruz</td>
-                                <td class="text-gray">juan.delacruz@student.pup.edu.ph</td>
-                                <td>24</td>
-                                <td><button class="btn-icon-delete"><i class="fas fa-user-times"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="text-gray">#2</td>
-                                <td class="font-bold">Maria Santos</td>
-                                <td class="text-gray">maria.santos@student.pup.edu.ph</td>
-                                <td>18</td>
-                                <td><button class="btn-icon-delete"><i class="fas fa-user-times"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="text-gray">#3</td>
-                                <td class="font-bold">Pedro Garcia</td>
-                                <td class="text-gray">pedro.garcia@student.pup.edu.ph</td>
-                                <td>32</td>
-                                <td><button class="btn-icon-delete"><i class="fas fa-user-times"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="text-gray">#4</td>
-                                <td class="font-bold">Ana Reyes</td>
-                                <td class="text-gray">ana.reyes@student.pup.edu.ph</td>
-                                <td>5</td>
-                                <td><button class="btn-icon-delete"><i class="fas fa-user-times"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="text-gray">#5</td>
-                                <td class="font-bold">Carlos Martinez</td>
-                                <td class="text-gray">carlos.martinez@student.pup.edu.ph</td>
-                                <td>41</td>
-                                <td><button class="btn-icon-delete"><i class="fas fa-user-times"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="text-gray">#6</td>
-                                <td class="font-bold">Sofia Rodriguez</td>
-                                <td class="text-gray">sofia.rodriguez@student.pup.edu.ph</td>
-                                <td>15</td>
-                                <td><button class="btn-icon-delete"><i class="fas fa-user-times"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="text-gray">#7</td>
-                                <td class="font-bold">Miguel Torres</td>
-                                <td class="text-gray">miguel.torres@student.pup.edu.ph</td>
-                                <td>28</td>
-                                <td><button class="btn-icon-delete"><i class="fas fa-user-times"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="text-gray">#8</td>
-                                <td class="font-bold">Isabel Flores</td>
-                                <td class="text-gray">isabel.flores@student.pup.edu.ph</td>
-                                <td>3</td>
-                                <td><button class="btn-icon-delete"><i class="fas fa-user-times"></i></button></td>
-                            </tr>
+                            @foreach(var user in Model.customerList) {
+                                <tr>
+                                    <td class="text-gray">@user.User_ID</td>
+                                    <td class="font-bold">@user.FirstName @user.LastName</td>
+                                    <td class="text-gray">@user.User.Email</td>
+                                    <td>@(Model.totalOrders[user.Customer_ID])</td>
+                                    <td><button class="btn-icon-delete"><i class="fas fa-user-times"></i></button></td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
 

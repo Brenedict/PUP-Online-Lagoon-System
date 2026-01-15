@@ -79,9 +79,10 @@ namespace PUP_Online_Lagoon_System.Controllers
         }
 
         [HttpGet]
-        public IActionResult Profile()
+        public IActionResult Profile(string? passwordChangeStatus)
         {
-            return View();
+            var customerProfileDTO = _service.GetCustomerProfileDTO(passwordChangeStatus);
+            return View(customerProfileDTO);
         }
 
         [HttpGet]
@@ -120,6 +121,13 @@ namespace PUP_Online_Lagoon_System.Controllers
             _orderService.cancelOrder(orderId);
 
             return RedirectToAction("Dashboard", "Customer");
+        }
+
+        [HttpPost]
+        public IActionResult SaveProfile(string customerId, string firstName, string lastName, string contactNum)
+        {
+            _service.updateCustomerPersonalInfo(customerId, firstName, lastName, contactNum);
+            return RedirectToAction("Profile", "Customer");
         }
     }
 }

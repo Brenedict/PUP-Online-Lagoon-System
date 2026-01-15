@@ -14,8 +14,7 @@
     <header class="dashboard-header">
         <div class="user-info">
             <span class="welcome-text">Welcome back,</span>
-            <h1 class="user-name">Juan Dela Cruz</h1>
-            <p class="user-id">2021-00000-MN-0</p>
+            <h1 class="user-name">@Model.customerName</h1>
         </div>
         </div>
         <div class="profile-icon">
@@ -58,7 +57,7 @@
 
                     <div class="details-header">
                         <div>
-                            <h3 class="stall-name-large">Ate Maria's Carinderia</h3>
+                            <h3 class="stall-name-large">@(Model.orderStallNames[order.Stall_ID])</h3>
                             <p class="order-id">@order.Order_ID</p>
                         </div>
                         <span class="status-badge status-@order.OrderStatus">@order.OrderStatus</span>

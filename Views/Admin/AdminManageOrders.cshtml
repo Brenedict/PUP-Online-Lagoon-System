@@ -1,4 +1,33 @@
-﻿
+﻿@model PUP_Online_Lagoon_System.Models.DTO.AdminOrdersTabDTO;
+
+@{
+    int totalOrderCount = Model.orderList.Count();
+    int cancelledOrder = 0, pendingOrder = 0, preparingOrder = 0, readyOrder = 0, completedOrder = 0;
+
+    foreach (var order in Model.orderList)
+    {
+        switch (order.Item1.OrderStatus.ToLower())
+        {
+            case "pending":
+                pendingOrder++;
+                break;
+            case "preparing":
+                preparingOrder++;
+                break;
+            case "ready":
+                readyOrder++;
+                break;
+            case "completed":
+                completedOrder++;
+                break;
+            case "cancelled":
+                cancelledOrder++;
+                break;
+            default:
+                break;
+        }
+    }
+}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,23 +103,27 @@
                 <div class="order-stats-row">
                     <div class="stat-box box-default">
                         <p class="stat-label">All Orders</p>
-                        <h2 class="stat-num">7</h2>
+                        <h2 class="stat-num">@totalOrderCount</h2>
                     </div>
                     <div class="stat-box box-pending">
                         <p class="stat-label">Pending</p>
-                        <h2 class="stat-num text-pending">2</h2>
+                        <h2 class="stat-num text-pending">@pendingOrder</h2>
                     </div>
                     <div class="stat-box box-preparing">
                         <p class="stat-label">Preparing</p>
-                        <h2 class="stat-num text-preparing">1</h2>
+                        <h2 class="stat-num text-preparing">@preparingOrder</h2>
                     </div>
                     <div class="stat-box box-ready">
                         <p class="stat-label">Ready</p>
-                        <h2 class="stat-num text-ready">1</h2>
+                        <h2 class="stat-num text-ready">@readyOrder</h2>
                     </div>
                     <div class="stat-box box-completed">
                         <p class="stat-label">Completed</p>
-                        <h2 class="stat-num text-dark">2</h2>
+                        <h2 class="stat-num text-dark">@completedOrder</h2>
+                    </div>
+                    <div class="stat-box box-cancelled">
+                        <p class="stat-label">Cancelled</p>
+                        <h2 class="stat-num text-cancelled">@cancelledOrder</h2>
                     </div>
                 </div>
 
@@ -110,7 +143,7 @@
                         <input type="text" placeholder="Filter status" class="filter-input">
                     </div>
                 </div>
-                <p class="result-count">Showing 5 orders</p>
+                <p class="result-count">Showing @(totalOrderCount) orders</p>
 
                 <div class="table-card">
                     <table class="order-table">
@@ -127,56 +160,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-dark">ORD123456</td>
-                                <td>Juan Dela Cruz</td>
-                                <td>Ate Maria's Carinderia</td>
-                                <td>2</td>
-                                <td class="font-bold">₱105.00</td>
-                                <td>Jan 7, 2026</td>
-                                <td>10:45 AM</td>
-                                <td><span class="badge badge-completed">Completed</span></td>
-                            </tr>
-                            <tr>
-                                <td class="text-dark">ORD123457</td>
-                                <td>Maria Santos</td>
-                                <td>Manong's Chicken BBQ</td>
-                                <td>1</td>
-                                <td class="font-bold">₱75.00</td>
-                                <td>Jan 7, 2026</td>
-                                <td>11:15 AM</td>
-                                <td><span class="badge badge-ready">Ready</span></td>
-                            </tr>
-                            <tr>
-                                <td class="text-dark">ORD123458</td>
-                                <td>Pedro Garcia</td>
-                                <td>Kuya's Pancit House</td>
-                                <td>3</td>
-                                <td class="font-bold">₱135.00</td>
-                                <td>Jan 7, 2026</td>
-                                <td>11:30 AM</td>
-                                <td><span class="badge badge-preparing">Preparing</span></td>
-                            </tr>
-                            <tr>
-                                <td class="text-dark">ORD123459</td>
-                                <td>Ana Reyes</td>
-                                <td>Ate Maria's Carinderia</td>
-                                <td>2</td>
-                                <td class="font-bold">₱120.00</td>
-                                <td>Jan 7, 2026</td>
-                                <td>11:45 AM</td>
-                                <td><span class="badge badge-pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td class="text-dark">ORD123460</td>
-                                <td>Carlos Martinez</td>
-                                <td>Sari-Sari Snacks</td>
-                                <td>1</td>
-                                <td class="font-bold">₱45.00</td>
-                                <td>Jan 7, 2026</td>
-                                <td>12:00 PM</td>
-                                <td><span class="badge badge-pending">Pending</span></td>
-                            </tr>
+                            @foreach(var order in Model.orderList)
+                            {
+                                var orderInfo = order.Item1;
+                                string customerName = order.Item2;
+                                string stallName = order.Item3;
+                                int orderItemCount = order.Item4;
+                                DateTime orderDateTime = DateTime.Parse(orderInfo.OrderDate);
+                                <tr>
+                                    <td class="text-dark">@(orderInfo.Order_ID)</td>
+                                    <td>@(customerName)</td>
+                                    <td>@(stallName)</td>
+                                    <td>@(orderItemCount)</td>
+                                    <td class="font-bold">₱@(orderInfo.OrderTotal)</td>
+                                    <td>@(DateOnly.FromDateTime(orderDateTime))</td>
+                                    <td>@(TimeOnly.FromDateTime(orderDateTime))</td>
+                                    <td><span class="badge badge-@(orderInfo.OrderStatus)">@(orderInfo.OrderStatus)</span></td>
+                                </tr>
+                            }
+                            
                         </tbody>
                     </table>
                 </div>

@@ -23,10 +23,13 @@ namespace PUP_Online_Lagoon_System.Controllers
 
         private readonly IAuthUser _authService;
 
-        public AdminController(ILogger<AccountController> logger, IAuthUser authService )
+        private readonly AdminService _service;
+
+        public AdminController(ILogger<AccountController> logger, IAuthUser authService, AdminService service)
         {
             _logger = logger;
             _authService = authService;
+            _service = service;
         }
 
         [HttpGet]
@@ -38,19 +41,22 @@ namespace PUP_Online_Lagoon_System.Controllers
         [HttpGet]
         public IActionResult AdminManageOrders()
         {
-            return View();
+            var adminOrdersViewDTO = _service.GetOrdersTabDTO();
+            return View(adminOrdersViewDTO);
         }
 
         [HttpGet]
         public IActionResult AdminManageStalls()
         {
-            return View();
+            var adminStallsViewDTO = _service.GetStallsTabDTO();
+            return View(adminStallsViewDTO);
         }
 
         [HttpGet]
         public IActionResult AdminManageUsers()
         {
-            return View();
+            var adminUsersViewDTO = _service.GetUsersTabDTO();
+            return View(adminUsersViewDTO);
         }
 
         [HttpGet]

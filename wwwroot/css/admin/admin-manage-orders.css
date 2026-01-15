@@ -51,7 +51,7 @@ body {
 /* 5 Column Stats Row */
 .order-stats-row {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 cols */
+    grid-template-columns: repeat(6, 1fr); /* 5 cols */
     gap: 15px;
     margin-bottom: 25px;
 }
@@ -70,6 +70,9 @@ body {
 .box-preparing { border: 1px solid #dbeafe; background-color: #eff6ff; }
 .box-ready { border: 1px solid #dcfce7; background-color: #f0fdf4; }
 .box-completed { border: 1px solid #e5e7eb; }
+.box-cancelled {
+    background-color: #ffc2c2;
+}
 
 .stat-label { font-size: 13px; color: var(--text-gray); margin: 0 0 5px 0; }
 .stat-num { font-size: 24px; font-weight: 500; color: var(--text-dark); margin: 0; }
@@ -132,3 +135,7 @@ body {
 .badge-ready { background-color: #dcfce7; color: #166534; }
 .badge-preparing { background-color: #dbeafe; color: #1e40af; }
 .badge-pending { background-color: #fef9c3; color: #854d0e; }
+.badge-cancelled {
+    background-color: #ffc2c2;
+    color: var(--text-gray);
+}

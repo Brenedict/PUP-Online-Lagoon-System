@@ -21,8 +21,8 @@
     <header class="vendor-header">
         <div class="header-content">
             <div>
-                <h1 class="stall-title">@Model.stallDetails.StallName</h1>
-                <p class="vendor-name">@Model.vendorFirstName</p>
+                <h1 class="stall-title">Stall: @Model.stallDetails.StallName</h1>
+                <p class="vendor-name">Welcome back, @Model.vendorFirstName</p>
             </div>
 
             <a asp-controller="Vendor" asp-action="VendorProfile" class="store-icon-btn">
@@ -96,7 +96,7 @@
             <div class="order-card">
                 <div class="order-header">
                     <div>
-                        <h4 class="customer-name">Juan Dela Cruz</h4>
+                        <h4 class="customer-name">@order.RecipientName</h4>
                         <p class="order-id">@order.Order_ID</p>
                     </div>
                     <span class="badge badge-@order.OrderStatus">@order.OrderStatus</span>

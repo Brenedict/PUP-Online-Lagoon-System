@@ -1,4 +1,8 @@
-﻿
+﻿@model PUP_Online_Lagoon_System.Models.DTO.AdminStallsTabDTO;
+@{
+    int totalStallCount = Model.stallsList.Count();
+    int totalOpenStallCount = Model.stallsList.Where(s => s.Item1.Status == true).ToList().Count();
+}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,15 +87,15 @@
                 <div class="stall-stats-row">
                     <div class="stat-box">
                         <p class="stat-label">Total Stalls</p>
-                        <h2 class="stat-num">5</h2>
+                        <h2 class="stat-num">@(totalStallCount)</h2>
                     </div>
                     <div class="stat-box">
                         <p class="stat-label">Currently Open</p>
-                        <h2 class="stat-num text-green">4</h2>
+                        <h2 class="stat-num text-green">@(totalOpenStallCount)</h2>
                     </div>
                     <div class="stat-box">
                         <p class="stat-label">Currently Closed</p>
-                        <h2 class="stat-num">1</h2>
+                        <h2 class="stat-num">@(totalStallCount - totalOpenStallCount)</h2>
                     </div>
                 </div>
 
@@ -108,46 +112,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="font-bold">Ate Maria's Carinderia</td>
-                                <td>Maria Cruz</td>
-                                <td>12</td>
-                                <td>10-15 mins</td>
-                                <td><span class="badge badge-open">Open</span></td>
-                                <td><button class="btn-icon-delete"><i class="fas fa-trash"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="font-bold">Manong's Chicken BBQ</td>
-                                <td>Roberto Santos</td>
-                                <td>8</td>
-                                <td>15-20 mins</td>
-                                <td><span class="badge badge-open">Open</span></td>
-                                <td><button class="btn-icon-delete"><i class="fas fa-trash"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="font-bold">Kuya's Pancit House</td>
-                                <td>Jose Garcia</td>
-                                <td>10</td>
-                                <td>10-12 mins</td>
-                                <td><span class="badge badge-open">Open</span></td>
-                                <td><button class="btn-icon-delete"><i class="fas fa-trash"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="font-bold">Aling Nena's Lutong Bahay</td>
-                                <td>Nena Reyes</td>
-                                <td>15</td>
-                                <td>12-15 mins</td>
-                                <td><span class="badge badge-closed">Closed</span></td>
-                                <td><button class="btn-icon-delete"><i class="fas fa-trash"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="font-bold">Sari-Sari Snacks</td>
-                                <td>Linda Martinez</td>
-                                <td>20</td>
-                                <td>5-8 mins</td>
-                                <td><span class="badge badge-open">Open</span></td>
-                                <td><button class="btn-icon-delete"><i class="fas fa-trash"></i></button></td>
-                            </tr>
+                            @foreach(var stall in Model.stallsList) {
+                                var stallInfo = stall.Item1;
+                                var vendorInfo = stall.Item2;
+
+                                string stallStatus = (stallInfo.Status) ? "open" : "closed";
+                                <tr>
+                                    <td class="font-bold">@stallInfo.StallName</td>
+                                    <td>@($"{vendorInfo.FirstName} {vendorInfo.LastName}")</td>
+                                    <td>@(Model.stallDetails[stallInfo.Stall_ID].Count())</td>
+                                    <td>@stallInfo.PrepTime mins</td>
+                                    <td><span class="badge badge-@stallStatus">@stallStatus</span></td>
+                                    <td><button class="btn-icon-delete"><i class="fas fa-trash"></i></button></td>
+                                </tr>
+                            }
+                            
                         </tbody>
                     </table>
                 </div>
