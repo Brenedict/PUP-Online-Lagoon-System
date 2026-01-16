@@ -35,13 +35,6 @@ namespace PUP_Online_Lagoon_System.Models
                 .HasForeignKey<Vendor>(v => v.User_ID)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Vendor -> Stall (Cascade)
-            modelBuilder.Entity<FoodStall>()
-                .HasOne(s => s.Vendor)
-                .WithMany()
-                .HasForeignKey(s => s.Vendor_ID)
-                .OnDelete(DeleteBehavior.Restrict);
-
             modelBuilder.Entity<FoodItem>()
                 .HasOne(f => f.Stall)
                 .WithMany() 

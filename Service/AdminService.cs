@@ -85,12 +85,27 @@ namespace PUP_Online_Lagoon_System.Service
         public async Task DeleteStallAndOwner(string stallId)
         {
             var stall = await _dbContext.FoodStalls
-                .Include(s => s.Vendor)
                 .FirstOrDefaultAsync(x => x.Stall_ID == stallId);
 
             if (stall == null) return;
 
-            var userId = stall.Vendor?.User_ID;
+            string vendorId = _dbContext.Vendors.FirstOrDefault(v => v.Stall_ID == stallId).Vendor_ID;
+            var vendor = await _dbContext.Vendors.FirstOrDefaultAsync(v => v.Vendor_ID == vendorId);
+            var userId = vendor?.User_ID;
+
+            var foodIds = await _dbContext.FoodItems
+                .Where(f => f.Stall_ID == stallId)
+                .Select(f => f.Food_ID)
+                .ToListAsync();
+
+            var relatedDetails = await _dbContext.OrderDetails
+                .Where(d => foodIds.Contains(d.Food_ID))
+                .ToListAsync();
+
+            foreach (var detail in relatedDetails)
+            {
+                detail.Food_ID = null;
+            }
 
             _dbContext.FoodStalls.Remove(stall);
 

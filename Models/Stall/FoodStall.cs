@@ -20,10 +20,5 @@ namespace PUP_Online_Lagoon_System.Models.Stall
 
         [Required]
         public bool Status { get; set; }
-
-        public string? Vendor_ID { get; set; }
-
-        [ForeignKey("Vendor_ID")]
-        public Vendor? Vendor { get; set; }
     }
 }

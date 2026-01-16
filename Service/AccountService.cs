@@ -97,7 +97,6 @@ namespace PUP_Online_Lagoon_System.Service
             var newStall = new FoodStall
             {
                 Stall_ID = dto.Stall_ID,
-                Vendor_ID = dto.Vendor_ID,
                 StallName = dto.StallName,
                 StallDescription = dto.StallDescription,
                 PrepTime = dto.PrepTime,
@@ -115,9 +114,6 @@ namespace PUP_Online_Lagoon_System.Service
             // 1. Save the Vendor first (This generates the Vendor's ID)
             _dbContext.Vendors.Add(vendor);
             _dbContext.SaveChanges();
-
-            // 2. Now that the Vendor has an ID, assign it to the Stall
-            stall.Vendor_ID = vendor.Vendor_ID;
 
             // 3. (Crucial) Link the Stall back to the Vendor object if your model requires it
             vendor.Stall_ID = stall.Stall_ID;
