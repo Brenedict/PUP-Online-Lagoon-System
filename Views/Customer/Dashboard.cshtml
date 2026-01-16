@@ -57,7 +57,7 @@
 
                     <div class="details-header">
                         <div>
-                            <h3 class="stall-name-large">@(Model.orderStallNames[order.Stall_ID])</h3>
+                            <h3 class="stall-name-large">@(Model.orderStallNames[(order.Stall_ID == null) ? "deleted" : order.Stall_ID])</h3>
                             <p class="order-id">@order.Order_ID</p>
                         </div>
                         <span class="status-badge status-@order.OrderStatus">@order.OrderStatus</span>

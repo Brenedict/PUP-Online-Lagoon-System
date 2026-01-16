@@ -26,7 +26,7 @@
     </header>
 
     <div class="main-content">
-        <p class="result-count">5 stalls available</p>
+        <p class="result-count">@(Model.Count()) stalls available</p>
 
         @foreach(var stall in Model)
         {            
@@ -58,7 +58,7 @@
                     <div class="stall-info">
                         <h3 class="stall-name">@stall.StallName</h3>
                         <span class="status-badge status-closed">Closed</span>
-                        <span class="time-text"><i class="far fa-clock"></i>@stall.PrepTime</span>
+                        <span class="time-text"><i class="far fa-clock"></i> @stall.PrepTime minutes</span>
                     </div>
                     <div class="arrow-icon">
                         <i class="fas fa-arrow-right"></i>

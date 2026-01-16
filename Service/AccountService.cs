@@ -41,7 +41,7 @@ namespace PUP_Online_Lagoon_System.Service
         }
         public User? ValidateUser(string email, string password)
         {
-            var user = _dbContext.Users.SingleOrDefault(u => u.Email == email && u.Password == password);
+            var user = _dbContext.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
 
             return user;
         }
