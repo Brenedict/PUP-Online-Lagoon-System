@@ -112,9 +112,17 @@ namespace PUP_Online_Lagoon_System.Service
 
         public void CreateStallAndVendor(Vendor vendor, FoodStall stall)
         {
+            // 1. Save the Vendor first (This generates the Vendor's ID)
+            _dbContext.Vendors.Add(vendor);
+            _dbContext.SaveChanges();
+
+            // 2. Now that the Vendor has an ID, assign it to the Stall
+            stall.Vendor_ID = vendor.Vendor_ID;
+
+            // 3. (Crucial) Link the Stall back to the Vendor object if your model requires it
             vendor.Stall_ID = stall.Stall_ID;
 
-            _dbContext.Vendors.Add(vendor);
+            // 4. Add the Stall and save again
             _dbContext.FoodStalls.Add(stall);
             _dbContext.SaveChanges();
         }

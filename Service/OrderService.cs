@@ -218,7 +218,11 @@ namespace PUP_Online_Lagoon_System.Service
                 {
                     newDTO.orderDetails.TryAdd(order.Order_ID, getOrderDetailsList(order.Order_ID));
 
-                    if(!newDTO.orderStallNames.TryGetValue(order.Stall_ID, out string stallName))
+                    if(order.Stall_ID == null && !newDTO.orderStallNames.TryGetValue("deleted", out string temp)) {
+                        newDTO.orderStallNames.Add("deleted", "deleted");
+                    }
+
+                    else if(order.Stall_ID != null && !newDTO.orderStallNames.TryGetValue(order.Stall_ID, out string stallName))
                     {
                         newDTO.orderStallNames.Add(order.Stall_ID, _vendorService.getStallDetails(order.Stall_ID).StallName);
                     }

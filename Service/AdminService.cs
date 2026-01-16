@@ -54,7 +54,7 @@ namespace PUP_Online_Lagoon_System.Service
             foreach(var stall in stallList)
             {
                 List<FoodItem> stallFoodItems = getAllFoodItems(stall.Stall_ID);
-                var vendor = _vendorService.getVendorDetails(stall.Vendor_ID);
+                var vendor = _vendorService.getVendorDetails(_vendorService.getVendorId(stall.Stall_ID));
                 newDTO.stallsList.Add((stall, vendor));
                 newDTO.stallDetails.Add(stall.Stall_ID, stallFoodItems);
             }
@@ -71,7 +71,7 @@ namespace PUP_Online_Lagoon_System.Service
             foreach (var order in orderList)
             {
                 string customerName = _customerService.GetCustomerName(order.Customer_ID);
-                string stallName = _vendorService.getStallDetails(order.Stall_ID).StallName;
+                string stallName = (order.Stall_ID == null) ? "<deleted>" : _vendorService.getStallDetails(order.Stall_ID).StallName;
                 int orderItemCount = _orderService.getOrderDetailsList(order.Order_ID).Count();
 
                 newDTO.orderList.Add((order, customerName, stallName, orderItemCount));
@@ -79,6 +79,33 @@ namespace PUP_Online_Lagoon_System.Service
 
             return newDTO;
         }
+
+
+
+        public async Task DeleteStallAndOwner(string stallId)
+        {
+            var stall = await _dbContext.FoodStalls
+                .Include(s => s.Vendor)
+                .FirstOrDefaultAsync(x => x.Stall_ID == stallId);
+
+            if (stall == null) return;
+
+            var userId = stall.Vendor?.User_ID;
+
+            _dbContext.FoodStalls.Remove(stall);
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var user = await _dbContext.Users.FindAsync(userId);
+                if (user != null)
+                {
+                    _dbContext.Users.Remove(user);
+                }
+            }
+
+            await _dbContext.SaveChangesAsync();
+        }
+
 
         public List<FoodItem> getAllFoodItems(string stallId)
         {

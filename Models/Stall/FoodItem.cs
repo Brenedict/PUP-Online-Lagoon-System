@@ -24,9 +24,9 @@ namespace PUP_Online_Lagoon_System.Models.Stall
         public bool Availability { get; set; }
 
         //  Foreign Keys
-        public string Stall_ID;
+        public string? Stall_ID;
 
         [ForeignKey("Stall_ID")]
-        public FoodStall Stall { get; set; }
+        public FoodStall? Stall { get; set; }
     }
 }

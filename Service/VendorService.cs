@@ -91,8 +91,13 @@ namespace PUP_Online_Lagoon_System.Service
 
         public string getStallId(string vendorId)
         {
-            string stallId = _dbContext.FoodStalls.FirstOrDefault(f => f.Vendor_ID == vendorId)?.Stall_ID;
+            string stallId = _dbContext.Vendors.FirstOrDefault(v => v.Vendor_ID == vendorId)?.Stall_ID;
             return stallId;
+        }
+
+        public string getVendorId(string stallId)
+        {
+            return _dbContext.Vendors.FirstOrDefault(v => v.Stall_ID == stallId).Vendor_ID.ToString(); ;
         }
 
         public FoodItem getFoodDetails(string foodId)

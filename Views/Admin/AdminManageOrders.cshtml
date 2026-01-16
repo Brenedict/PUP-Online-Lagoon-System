@@ -170,7 +170,7 @@
                                 <tr>
                                     <td class="text-dark">@(orderInfo.Order_ID)</td>
                                     <td>@(customerName)</td>
-                                    <td>@(stallName)</td>
+                                    <td>@(stallName == "" ? orderInfo.Stall_ID : stallName)</td>
                                     <td>@(orderItemCount)</td>
                                     <td class="font-bold">₱@(orderInfo.OrderTotal)</td>
                                     <td>@(DateOnly.FromDateTime(orderDateTime))</td>

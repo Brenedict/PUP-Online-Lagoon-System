@@ -123,7 +123,7 @@
                                     <td>@(Model.stallDetails[stallInfo.Stall_ID].Count())</td>
                                     <td>@stallInfo.PrepTime mins</td>
                                     <td><span class="badge badge-@stallStatus">@stallStatus</span></td>
-                                    <td><button class="btn-icon-delete"><i class="fas fa-trash"></i></button></td>
+                                    <td><button class="btn-icon-delete" onclick="confirmDeleteStall('@stallInfo.Stall_ID', '@stallInfo.StallName')">><i class="fas fa-trash"></i></button></td>
                                 </tr>
                             }
                             
@@ -136,3 +136,12 @@
     </div>
 
 </body>
+
+<script>
+    function confirmDeleteStall(id, name) {
+        if (confirm(`Are you sure? This will delete ${name} AND the Vendor's account forever.`)) {
+            // Send to your Controller Action
+            window.location.href = `/Admin/DeleteStallAndOwner?stallId=${id}`;
+        }
+    }
+</script>
